@@ -1,0 +1,792 @@
+/* ============================================
+   🎆 3D Effects CSS - التأثيرات ثلاثية الأبعاد
+   ============================================
+   يحتوي على: Glassmorphism, Glow Effects, 3D Transforms, 
+   Perspective, Parallax, Gradient Mesh
+   ============================================ */
+
+/* ============================================
+   🔮 GLASSMORPHISM
+   ============================================ */
+.glass {
+    background: rgba(26, 26, 62, 0.6);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(123, 73, 255, 0.2);
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.glass-strong {
+    background: rgba(26, 26, 62, 0.8);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    border: 1px solid rgba(123, 73, 255, 0.3);
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.glass-light {
+    background: rgba(123, 73, 255, 0.05);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(123, 73, 255, 0.1);
+}
+
+/* ============================================
+   ✨ GLOW EFFECTS
+   ============================================ */
+.glow-purple {
+    box-shadow: 
+        0 0 5px rgba(123, 73, 255, 0.3),
+        0 0 20px rgba(123, 73, 255, 0.2),
+        0 0 40px rgba(123, 73, 255, 0.1);
+}
+
+.glow-pink {
+    box-shadow: 
+        0 0 5px rgba(255, 44, 121, 0.3),
+        0 0 20px rgba(255, 44, 121, 0.2),
+        0 0 40px rgba(255, 44, 121, 0.1);
+}
+
+.glow-cyan {
+    box-shadow: 
+        0 0 5px rgba(0, 255, 208, 0.3),
+        0 0 20px rgba(0, 255, 208, 0.2),
+        0 0 40px rgba(0, 255, 208, 0.1);
+}
+
+.glow-text-purple {
+    text-shadow: 
+        0 0 5px rgba(123, 73, 255, 0.5),
+        0 0 20px rgba(123, 73, 255, 0.3),
+        0 0 40px rgba(123, 73, 255, 0.2);
+}
+
+.glow-text-cyan {
+    text-shadow: 
+        0 0 5px rgba(0, 255, 208, 0.5),
+        0 0 20px rgba(0, 255, 208, 0.3),
+        0 0 40px rgba(0, 255, 208, 0.2);
+}
+
+/* ============================================
+   🎲 3D TRANSFORMS & PERSPECTIVE
+   ============================================ */
+.perspective-container {
+    perspective: 1000px;
+    perspective-origin: center center;
+}
+
+.card-3d {
+    transform-style: preserve-3d;
+    transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.card-3d:hover {
+    transform: 
+        rotateY(8deg) 
+        rotateX(5deg) 
+        translateZ(20px)
+        scale(1.02);
+}
+
+.card-3d-flip {
+    transform-style: preserve-3d;
+    transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.card-3d-flip:hover {
+    transform: rotateY(180deg);
+}
+
+.card-3d-tilt {
+    transform-style: preserve-3d;
+    transition: transform 0.3s ease-out;
+}
+
+/* 3D Button Press */
+.btn-3d {
+    transform-style: preserve-3d;
+    transition: all 0.2s ease;
+    box-shadow: 
+        0 4px 0 var(--color-primary-dark),
+        0 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+.btn-3d:hover {
+    transform: translateY(-2px);
+    box-shadow: 
+        0 6px 0 var(--color-primary-dark),
+        0 8px 15px rgba(0, 0, 0, 0.3);
+}
+
+.btn-3d:active {
+    transform: translateY(4px);
+    box-shadow: 
+        0 0 0 var(--color-primary-dark),
+        0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+/* 3D Card Stack */
+.card-stack {
+    position: relative;
+    transform-style: preserve-3d;
+}
+
+.card-stack::before,
+.card-stack::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: inherit;
+    background: inherit;
+    opacity: 0.5;
+    z-index: -1;
+    transition: transform 0.4s ease;
+}
+
+.card-stack::before {
+    transform: translateZ(-10px) translateY(5px);
+}
+
+.card-stack::after {
+    transform: translateZ(-20px) translateY(10px);
+    opacity: 0.3;
+}
+
+.card-stack:hover::before {
+    transform: translateZ(-15px) translateY(8px);
+}
+
+.card-stack:hover::after {
+    transform: translateZ(-30px) translateY(15px);
+}
+
+/* ============================================
+   🌊 FLOATING & LEVITATION
+   ============================================ */
+.float {
+    animation: float 3s ease-in-out infinite;
+}
+
+.float-slow {
+    animation: float 5s ease-in-out infinite;
+}
+
+.float-fast {
+    animation: float 2s ease-in-out infinite;
+}
+
+.float-delay-1 { animation-delay: 0.5s; }
+.float-delay-2 { animation-delay: 1s; }
+.float-delay-3 { animation-delay: 1.5s; }
+.float-delay-4 { animation-delay: 2s; }
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    25% {
+        transform: translateY(-10px) rotate(1deg);
+    }
+    50% {
+        transform: translateY(-15px) rotate(0deg);
+    }
+    75% {
+        transform: translateY(-10px) rotate(-1deg);
+    }
+}
+
+/* Levitate with shadow */
+.levitate {
+    animation: levitate 3s ease-in-out infinite;
+}
+
+@keyframes levitate {
+    0%, 100% {
+        transform: translateY(0);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+    50% {
+        transform: translateY(-15px);
+        box-shadow: 0 25px 40px rgba(123, 73, 255, 0.2);
+    }
+}
+
+/* ============================================
+   🌈 GRADIENT MESH & ANIMATED BACKGROUNDS
+   ============================================ */
+.gradient-mesh {
+    background: 
+        radial-gradient(ellipse at 20% 20%, rgba(123, 73, 255, 0.3) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 80%, rgba(255, 44, 121, 0.2) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 50%, rgba(0, 255, 208, 0.1) 0%, transparent 60%);
+    background-size: 200% 200%;
+    animation: gradientShift 15s ease infinite;
+}
+
+.gradient-mesh-animated {
+    position: relative;
+    overflow: hidden;
+}
+
+.gradient-mesh-animated::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: 
+        radial-gradient(circle at 30% 30%, rgba(123, 73, 255, 0.4) 0%, transparent 40%),
+        radial-gradient(circle at 70% 70%, rgba(255, 44, 121, 0.3) 0%, transparent 40%),
+        radial-gradient(circle at 50% 50%, rgba(0, 255, 208, 0.2) 0%, transparent 50%);
+    animation: rotateGradient 20s linear infinite;
+    z-index: -1;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 0%; }
+    25% { background-position: 100% 0%; }
+    50% { background-position: 100% 100%; }
+    75% { background-position: 0% 100%; }
+    100% { background-position: 0% 0%; }
+}
+
+@keyframes rotateGradient {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Aurora Effect */
+.aurora {
+    position: relative;
+    overflow: hidden;
+}
+
+.aurora::before {
+    content: '';
+    position: absolute;
+    top: -100%;
+    left: -100%;
+    width: 300%;
+    height: 300%;
+    background: 
+        linear-gradient(45deg, 
+            rgba(123, 73, 255, 0.1) 0%, 
+            rgba(255, 44, 121, 0.1) 25%, 
+            rgba(0, 255, 208, 0.1) 50%, 
+            rgba(123, 73, 255, 0.1) 75%, 
+            rgba(255, 44, 121, 0.1) 100%);
+    animation: aurora 8s linear infinite;
+    z-index: -1;
+}
+
+@keyframes aurora {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    50% { transform: translate(-10%, -10%) rotate(180deg); }
+    100% { transform: translate(0, 0) rotate(360deg); }
+}
+
+/* ============================================
+   💫 NEON & LIGHT EFFECTS
+   ============================================ */
+.neon-border {
+    position: relative;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+}
+
+.neon-border::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: var(--gradient-primary);
+    border-radius: inherit;
+    z-index: -1;
+    opacity: 0.5;
+    filter: blur(8px);
+    transition: opacity 0.3s ease;
+}
+
+.neon-border:hover::before {
+    opacity: 1;
+}
+
+.neon-text {
+    color: var(--text-primary);
+    text-shadow: 
+        0 0 5px currentColor,
+        0 0 10px currentColor,
+        0 0 20px currentColor,
+        0 0 40px var(--color-primary);
+    animation: neonFlicker 3s infinite alternate;
+}
+
+@keyframes neonFlicker {
+    0%, 18%, 22%, 25%, 53%, 57%, 100% {
+        text-shadow: 
+            0 0 5px currentColor,
+            0 0 10px currentColor,
+            0 0 20px currentColor,
+            0 0 40px var(--color-primary);
+    }
+    20%, 24%, 55% {
+        text-shadow: none;
+    }
+}
+
+/* Light sweep effect */
+.light-sweep {
+    position: relative;
+    overflow: hidden;
+}
+
+.light-sweep::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        45deg,
+        transparent 40%,
+        rgba(255, 255, 255, 0.05) 50%,
+        transparent 60%
+    );
+    animation: lightSweep 3s ease-in-out infinite;
+}
+
+@keyframes lightSweep {
+    0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+    100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+}
+
+/* ============================================
+   🔄 ORBIT & ROTATION EFFECTS
+   ============================================ */
+.orbit-container {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    perspective: 800px;
+}
+
+.orbit-item {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform-style: preserve-3d;
+    animation: orbit 8s linear infinite;
+}
+
+.orbit-item:nth-child(1) { animation-delay: 0s; }
+.orbit-item:nth-child(2) { animation-delay: -2.66s; }
+.orbit-item:nth-child(3) { animation-delay: -5.33s; }
+
+@keyframes orbit {
+    0% {
+        transform: 
+            translate(-50%, -50%) 
+            rotateY(0deg) 
+            translateZ(120px) 
+            rotateY(0deg);
+    }
+    100% {
+        transform: 
+            translate(-50%, -50%) 
+            rotateY(360deg) 
+            translateZ(120px) 
+            rotateY(-360deg);
+    }
+}
+
+/* Spin 3D */
+.spin-3d {
+    animation: spin3d 4s linear infinite;
+    transform-style: preserve-3d;
+}
+
+@keyframes spin3d {
+    0% { transform: rotateY(0deg); }
+    100% { transform: rotateY(360deg); }
+}
+
+/* ============================================
+   🌊 WAVE & RIPPLE EFFECTS
+   ============================================ */
+.wave-effect {
+    position: relative;
+    overflow: hidden;
+}
+
+.wave-effect::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(123, 73, 255, 0.3);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease, height 0.6s ease;
+}
+
+.wave-effect:hover::before {
+    width: 300%;
+    height: 300%;
+}
+
+/* Ripple on click */
+.ripple {
+    position: relative;
+    overflow: hidden;
+}
+
+.ripple::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 5px;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.5);
+    opacity: 0;
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    transition: transform 0.5s, opacity 0.5s;
+}
+
+.ripple:active::after {
+    transform: translate(-50%, -50%) scale(50);
+    opacity: 0;
+    transition: 0s;
+}
+
+/* ============================================
+   🔮 MAGNETIC & HOVER EFFECTS
+   ============================================ */
+.magnetic {
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Hover glow expansion */
+.hover-glow {
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.hover-glow::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: inherit;
+    background: var(--gradient-primary);
+    opacity: 0;
+    filter: blur(20px);
+    transition: opacity 0.3s ease;
+    z-index: -1;
+}
+
+.hover-glow:hover::before {
+    opacity: 0.4;
+}
+
+.hover-glow:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(123, 73, 255, 0.2);
+}
+
+/* ============================================
+   🎭 PARALLAX & DEPTH EFFECTS
+   ============================================ */
+.parallax-layer {
+    will-change: transform;
+    transition: transform 0.1s linear;
+}
+
+.parallax-slow {
+    --parallax-speed: 0.3;
+}
+
+.parallax-medium {
+    --parallax-speed: 0.6;
+}
+
+.parallax-fast {
+    --parallax-speed: 1;
+}
+
+/* Depth shadow layers */
+.depth-1 { box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); }
+.depth-2 { box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); }
+.depth-3 { box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4); }
+.depth-4 { box-shadow: 0 16px 32px rgba(0, 0, 0, 0.5); }
+.depth-5 { box-shadow: 0 32px 64px rgba(0, 0, 0, 0.6); }
+
+/* ============================================
+   🌟 SHIMMER & SPARKLE EFFECTS
+   ============================================ */
+.shimmer {
+    position: relative;
+    overflow: hidden;
+}
+
+.shimmer::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.1),
+        transparent
+    );
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    0% { left: -100%; }
+    100% { left: 200%; }
+}
+
+/* Sparkle particles */
+.sparkle {
+    position: relative;
+}
+
+.sparkle::before,
+.sparkle::after {
+    content: '✦';
+    position: absolute;
+    color: var(--color-accent);
+    font-size: 12px;
+    opacity: 0;
+    animation: sparkle 2s ease-in-out infinite;
+}
+
+.sparkle::before {
+    top: -10px;
+    right: -10px;
+    animation-delay: 0s;
+}
+
+.sparkle::after {
+    bottom: -10px;
+    left: -10px;
+    animation-delay: 1s;
+}
+
+@keyframes sparkle {
+    0%, 100% { opacity: 0; transform: scale(0) rotate(0deg); }
+    50% { opacity: 1; transform: scale(1) rotate(180deg); }
+}
+
+/* ============================================
+   🎨 MORPHING & SHAPE EFFECTS
+   ============================================ */
+.morph {
+    animation: morph 8s ease-in-out infinite;
+}
+
+@keyframes morph {
+    0%, 100% {
+        border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    }
+    50% {
+        border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+    }
+}
+
+/* Blob animation */
+.blob {
+    animation: blob 7s ease-in-out infinite;
+}
+
+@keyframes blob {
+    0%, 100% {
+        border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+        transform: translate(0, 0) scale(1);
+    }
+    33% {
+        border-radius: 70% 30% 50% 50% / 30% 30% 70% 70%;
+        transform: translate(10px, -10px) scale(1.05);
+    }
+    66% {
+        border-radius: 50% 50% 30% 70% / 60% 40% 30% 60%;
+        transform: translate(-10px, 10px) scale(0.95);
+    }
+}
+
+/* ============================================
+   🔥 FIRE & ENERGY EFFECTS
+   ============================================ */
+.energy-pulse {
+    animation: energyPulse 2s ease-in-out infinite;
+}
+
+@keyframes energyPulse {
+    0%, 100% {
+        box-shadow: 
+            0 0 5px rgba(123, 73, 255, 0.5),
+            0 0 10px rgba(123, 73, 255, 0.3);
+    }
+    50% {
+        box-shadow: 
+            0 0 20px rgba(123, 73, 255, 0.8),
+            0 0 40px rgba(123, 73, 255, 0.5),
+            0 0 60px rgba(123, 73, 255, 0.3);
+    }
+}
+
+/* Border glow animation */
+.border-glow {
+    position: relative;
+}
+
+.border-glow::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: inherit;
+    padding: 2px;
+    background: var(--gradient-primary);
+    -webkit-mask: 
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    animation: borderGlow 3s linear infinite;
+    background-size: 200% 200%;
+}
+
+@keyframes borderGlow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* ============================================
+   🌫️ FOG & MIST EFFECTS
+   ============================================ */
+.fog-container {
+    position: relative;
+    overflow: hidden;
+}
+
+.fog-container::before,
+.fog-container::after {
+    content: '';
+    position: absolute;
+    width: 200%;
+    height: 100%;
+    background: 
+        radial-gradient(ellipse at center, 
+            rgba(123, 73, 255, 0.1) 0%, 
+            transparent 70%);
+    animation: fog 20s linear infinite;
+}
+
+.fog-container::after {
+    animation-delay: -10s;
+    animation-direction: reverse;
+}
+
+@keyframes fog {
+    0% { transform: translateX(-50%); }
+    100% { transform: translateX(0); }
+}
+
+/* ============================================
+   📐 ISOMETRIC & DIAMOND EFFECTS
+   ============================================ */
+.isometric {
+    transform: 
+        rotateX(60deg) 
+        rotateZ(-45deg) 
+        scale(0.8);
+    transform-style: preserve-3d;
+}
+
+.diamond {
+    transform: rotate(45deg);
+}
+
+.diamond > * {
+    transform: rotate(-45deg);
+}
+
+/* ============================================
+   🎪 CIRCUS & FUN EFFECTS
+   ============================================ */
+.swing {
+    animation: swing 2s ease-in-out infinite;
+    transform-origin: top center;
+}
+
+@keyframes swing {
+    0%, 100% { transform: rotate(3deg); }
+    50% { transform: rotate(-3deg); }
+}
+
+.bounce-in {
+    animation: bounceIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes bounceIn {
+    0% { transform: scale(0); opacity: 0; }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.elastic {
+    animation: elastic 1s ease-in-out infinite;
+}
+
+@keyframes elastic {
+    0%, 100% { transform: scale(1); }
+    25% { transform: scale(1.1, 0.9); }
+    50% { transform: scale(0.9, 1.1); }
+    75% { transform: scale(1.05, 0.95); }
+}
+
+/* ============================================
+   🎯 UTILITY 3D CLASSES
+   ============================================ */
+.preserve-3d { transform-style: preserve-3d; }
+.backface-hidden { backface-visibility: hidden; }
+.perspective-500 { perspective: 500px; }
+.perspective-1000 { perspective: 1000px; }
+.perspective-2000 { perspective: 2000px; }
+
+.translate-z-0 { transform: translateZ(0); }
+.translate-z-10 { transform: translateZ(10px); }
+.translate-z-20 { transform: translateZ(20px); }
+.translate-z-50 { transform: translateZ(50px); }
+.translate-z-100 { transform: translateZ(100px); }
+
+.rotate-x-5 { transform: rotateX(5deg); }
+.rotate-x-10 { transform: rotateX(10deg); }
+.rotate-x-15 { transform: rotateX(15deg); }
+.rotate-y-5 { transform: rotateY(5deg); }
+.rotate-y-10 { transform: rotateY(10deg); }
+.rotate-y-15 { transform: rotateY(15deg); }
+.rotate-y-180 { transform: rotateY(180deg); }

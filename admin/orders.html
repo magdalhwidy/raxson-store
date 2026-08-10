@@ -1,0 +1,1360 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الطلبات | لوحة التحكم</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/admin/sidebar.css">
+
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        :root {
+            --color-primary: #7B49FF;
+            --color-primary-dark: #5A2DD6;
+            --color-primary-light: #9B7AFF;
+            --color-secondary: #FF2C79;
+            --color-accent: #00FFD0;
+            --color-success: #00FFD0;
+            --color-warning: #FFB800;
+            --color-error: #FF3366;
+            --bg-primary: #0A0A1A;
+            --bg-secondary: #12122B;
+            --bg-surface: #1A1A3E;
+            --bg-surface-hover: #252550;
+            --text-primary: #FFFFFF;
+            --text-secondary: #A0A0C0;
+            --text-muted: #606080;
+            --border-subtle: 1px solid rgba(123, 73, 255, 0.1);
+            --border-primary: 1px solid rgba(123, 73, 255, 0.2);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --space-xs: 4px;
+            --space-sm: 8px;
+            --space-md: 16px;
+            --space-lg: 24px;
+            --space-xl: 32px;
+            --transition-fast: 0.2s ease;
+            --transition-normal: 0.3s ease;
+            --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.3);
+            --shadow-glow: 0 0 20px rgba(123, 73, 255, 0.15);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+
+        /* ─── Sidebar (Same as dashboard) ─── */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 280px;
+            height: 100vh;
+            background: var(--bg-secondary);
+            border-left: var(--border-primary);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar-header {
+            padding: var(--space-lg);
+            border-bottom: var(--border-subtle);
+        }
+
+        .sidebar-brand {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            text-decoration: none;
+        }
+
+        .sidebar-brand-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: white;
+            box-shadow: 0 0 15px rgba(123, 73, 255, 0.3);
+        }
+
+        .sidebar-brand-text h2 {
+            font-size: 18px;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .sidebar-brand-text span {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .sidebar-user {
+            padding: var(--space-lg);
+            border-bottom: var(--border-subtle);
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+
+        .user-avatar {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: white;
+            font-weight: 600;
+        }
+
+        .user-info h4 {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .user-info span {
+            font-size: 12px;
+            color: var(--color-accent);
+        }
+
+        .sidebar-nav {
+            flex: 1;
+            padding: var(--space-md) 0;
+            overflow-y: auto;
+        }
+
+        .nav-section {
+            margin-bottom: var(--space-md);
+        }
+
+        .nav-section-title {
+            padding: var(--space-sm) var(--space-lg);
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            padding: var(--space-md) var(--space-lg);
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: var(--transition-fast);
+            position: relative;
+            border-right: 3px solid transparent;
+        }
+
+        .nav-item:hover {
+            background: rgba(123, 73, 255, 0.05);
+            color: var(--text-primary);
+        }
+
+        .nav-item.active {
+            background: rgba(123, 73, 255, 0.1);
+            color: var(--color-primary);
+            border-right-color: var(--color-primary);
+        }
+
+        .nav-item i {
+            width: 24px;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        .nav-badge {
+            margin-right: auto;
+            padding: 2px 8px;
+            background: var(--color-secondary);
+            color: white;
+            font-size: 11px;
+            font-weight: 600;
+            border-radius: 20px;
+            min-width: 20px;
+            text-align: center;
+        }
+
+        .sidebar-footer {
+            padding: var(--space-lg);
+            border-top: var(--border-subtle);
+        }
+
+        .btn-logout {
+            width: 100%;
+            padding: var(--space-md);
+            background: rgba(255, 51, 102, 0.1);
+            border: 1px solid rgba(255, 51, 102, 0.2);
+            border-radius: var(--radius-md);
+            color: var(--color-error);
+            font-family: 'Cairo', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+            transition: var(--transition-fast);
+        }
+
+        .btn-logout:hover {
+            background: rgba(255, 51, 102, 0.2);
+        }
+
+        /* ─── Main Content ─── */
+        .main-content {
+            margin-right: 280px;
+            padding: var(--space-xl);
+            min-height: 100vh;
+        }
+
+        .top-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: var(--space-xl);
+        }
+
+        .page-title h1 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: var(--space-xs);
+        }
+
+        .page-title p {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        /* ─── Filters ─── */
+        .filters-bar {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            margin-bottom: var(--space-lg);
+            flex-wrap: wrap;
+        }
+
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .filter-label {
+            font-size: 14px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .filter-select, .filter-input {
+            padding: var(--space-sm) var(--space-md);
+            background: var(--bg-surface);
+            border: var(--border-primary);
+            border-radius: var(--radius-sm);
+            color: var(--text-primary);
+            font-family: 'Cairo', sans-serif;
+            font-size: 14px;
+            outline: none;
+            transition: var(--transition-fast);
+        }
+
+        .filter-select:focus, .filter-input:focus {
+            border-color: var(--color-primary);
+            box-shadow: 0 0 10px rgba(123, 73, 255, 0.2);
+        }
+
+        .filter-input {
+            min-width: 200px;
+        }
+
+        .btn-filter {
+            padding: var(--space-sm) var(--space-lg);
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            border: none;
+            border-radius: var(--radius-sm);
+            color: white;
+            font-family: 'Cairo', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        .btn-filter:hover {
+            filter: brightness(1.2);
+        }
+
+        /* ─── Orders Table ─── */
+        .card {
+            background: var(--bg-surface);
+            border: var(--border-subtle);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--space-lg);
+            border-bottom: var(--border-subtle);
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .data-table th {
+            padding: var(--space-md);
+            text-align: right;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: var(--border-subtle);
+            background: rgba(10, 10, 26, 0.5);
+        }
+
+        .data-table td {
+            padding: var(--space-md);
+            font-size: 14px;
+            border-bottom: var(--border-subtle);
+            color: var(--text-secondary);
+        }
+
+        .data-table tr:hover td {
+            background: rgba(123, 73, 255, 0.03);
+        }
+
+        .data-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Order ID */
+        .order-id {
+            font-weight: 600;
+            color: var(--color-primary);
+            font-family: monospace;
+        }
+
+        /* Customer Info */
+        .customer-info h4 {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 2px;
+        }
+
+        .customer-info span {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* Status Badge */
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-xs);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status-pending {
+            background: rgba(255, 184, 0, 0.1);
+            color: var(--color-warning);
+        }
+
+        .status-processing {
+            background: rgba(123, 73, 255, 0.1);
+            color: var(--color-primary);
+        }
+
+        .status-completed {
+            background: rgba(0, 255, 208, 0.1);
+            color: var(--color-success);
+        }
+
+        .status-cancelled {
+            background: rgba(255, 51, 102, 0.1);
+            color: var(--color-error);
+        }
+
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: currentColor;
+        }
+
+        /* Amount */
+        .amount {
+            font-weight: 700;
+            color: var(--color-accent);
+            font-size: 15px;
+        }
+
+        /* Actions */
+        .actions {
+            display: flex;
+            gap: var(--space-sm);
+        }
+
+        .btn-action {
+            width: 32px;
+            height: 32px;
+            background: transparent;
+            border: var(--border-primary);
+            border-radius: var(--radius-sm);
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            font-size: 13px;
+        }
+
+        .btn-action:hover {
+            background: rgba(123, 73, 255, 0.1);
+            color: var(--color-primary);
+            border-color: rgba(123, 73, 255, 0.3);
+        }
+
+        .btn-action.view:hover { color: var(--color-primary); }
+        .btn-action.telegram:hover { color: var(--color-accent); }
+        .btn-action.complete:hover { color: var(--color-success); }
+        .btn-action.cancel:hover { color: var(--color-error); }
+
+        /* ─── Modal ─── */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 500;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition-normal);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
+            width: 90%;
+            max-width: 600px;
+            max-height: 85vh;
+            overflow-y: auto;
+            background: var(--bg-secondary);
+            border: var(--border-primary);
+            border-radius: var(--radius-lg);
+            z-index: 501;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition-normal);
+        }
+
+        .modal.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--space-lg);
+            border-bottom: var(--border-subtle);
+        }
+
+        .modal-title {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .modal-close {
+            width: 36px;
+            height: 36px;
+            background: rgba(255, 51, 102, 0.1);
+            border: none;
+            border-radius: var(--radius-sm);
+            color: var(--color-error);
+            font-size: 16px;
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        .modal-close:hover {
+            background: rgba(255, 51, 102, 0.2);
+        }
+
+        .modal-body {
+            padding: var(--space-lg);
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: var(--space-md) 0;
+            border-bottom: var(--border-subtle);
+        }
+
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+
+        .detail-label {
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        .detail-value {
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .items-list {
+            margin-top: var(--space-md);
+        }
+
+        .items-list h4 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: var(--space-md);
+            color: var(--text-secondary);
+        }
+
+        .item-row {
+            display: flex;
+            justify-content: space-between;
+            padding: var(--space-sm) 0;
+            font-size: 14px;
+        }
+
+        .item-name {
+            color: var(--text-secondary);
+        }
+
+        .item-price {
+            color: var(--color-accent);
+            font-weight: 600;
+        }
+
+        .modal-footer {
+            display: flex;
+            gap: var(--space-md);
+            padding: var(--space-lg);
+            border-top: var(--border-subtle);
+        }
+
+        .btn-modal {
+            flex: 1;
+            padding: var(--space-md);
+            border: none;
+            border-radius: var(--radius-sm);
+            font-family: 'Cairo', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+            transition: var(--transition-fast);
+        }
+
+        .btn-primary-modal {
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            color: white;
+        }
+
+        .btn-primary-modal:hover {
+            filter: brightness(1.2);
+        }
+
+        .btn-secondary-modal {
+            background: var(--bg-surface);
+            border: var(--border-primary);
+            color: var(--text-secondary);
+        }
+
+        .btn-secondary-modal:hover {
+            background: var(--bg-surface-hover);
+            color: var(--text-primary);
+        }
+
+        /* ─── Empty State ─── */
+        .empty-state {
+            text-align: center;
+            padding: var(--space-2xl);
+        }
+
+        .empty-state i {
+            font-size: 64px;
+            color: var(--text-muted);
+            margin-bottom: var(--space-lg);
+            display: block;
+        }
+
+        .empty-state h3 {
+            font-size: 18px;
+            color: var(--text-secondary);
+            margin-bottom: var(--space-sm);
+        }
+
+        .empty-state p {
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        /* ─── Toast ─── */
+        .toast-container {
+            position: fixed;
+            top: var(--space-lg);
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+        }
+
+        .toast {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            padding: var(--space-md) var(--space-lg);
+            background: var(--bg-surface);
+            border: var(--border-primary);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-card);
+            color: var(--text-primary);
+            font-size: 14px;
+            min-width: 300px;
+            animation: toastIn 0.3s ease;
+        }
+
+        .toast.toast-out {
+            animation: toastOut 0.3s ease forwards;
+        }
+
+        @keyframes toastIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes toastOut {
+            from { opacity: 1; transform: translateY(0); }
+            to { opacity: 0; transform: translateY(-20px); }
+        }
+
+        .toast-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .toast-success .toast-icon { background: rgba(0, 255, 208, 0.1); color: var(--color-success); }
+        .toast-error .toast-icon { background: rgba(255, 51, 102, 0.1); color: var(--color-error); }
+
+        /* ─── Mobile ─── */
+        .mobile-toggle {
+            display: none;
+            position: fixed;
+            top: var(--space-lg);
+            left: var(--space-lg);
+            z-index: 200;
+            width: 45px;
+            height: 45px;
+            background: var(--bg-surface);
+            border: var(--border-primary);
+            border-radius: var(--radius-md);
+            color: var(--text-primary);
+            font-size: 18px;
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 99;
+        }
+
+        .sidebar-overlay.show {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(100%);
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-right: 0;
+                padding: var(--space-lg);
+                padding-top: 80px;
+            }
+
+            .mobile-toggle {
+                display: flex;
+            }
+
+            .filters-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .filter-group {
+                width: 100%;
+            }
+
+            .filter-select, .filter-input {
+                width: 100%;
+            }
+
+            .data-table {
+                font-size: 12px;
+            }
+
+            .data-table th,
+            .data-table td {
+                padding: var(--space-sm);
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="mobile-toggle" id="mobileToggle">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="dashboard.html" class="sidebar-brand">
+                <div class="sidebar-brand-icon">
+                    <i class="fas fa-store"></i>
+                </div>
+                <div class="sidebar-brand-text">
+                    <h2>Shop Store</h2>
+                    <span>لوحة التحكم</span>
+                </div>
+            </a>
+        </div>
+
+        <div class="sidebar-user">
+            <div class="user-avatar" id="userAvatar">م</div>
+            <div class="user-info">
+                <h4 id="userName">المدير</h4>
+                <span id="userRole">مدير النظام</span>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+            <div class="nav-section">
+                <div class="nav-section-title">القائمة الرئيسية</div>
+                <a href="dashboard.html" class="nav-item">
+                    <i class="fas fa-chart-line"></i>
+                    <span>لوحة التحكم</span>
+                </a>
+                <a href="orders.html" class="nav-item active">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span>الطلبات</span>
+                    <span class="nav-badge" id="ordersBadge">0</span>
+                </a>
+                <a href="products.html" class="nav-item">
+                    <i class="fas fa-box"></i>
+                    <span>المنتجات</span>
+                </a>
+                <a href="employees.html" class="nav-item" id="employeesNav">
+                    <i class="fas fa-users"></i>
+                    <span>الموظفين</span>
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">الإعدادات</div>
+                <a href="settings.html" class="nav-item">
+                    <i class="fas fa-cog"></i>
+                    <span>إعدادات الموقع</span>
+                </a>
+            </div>
+        </nav>
+
+        <div class="sidebar-footer">
+            <button class="btn-logout" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>تسجيل الخروج</span>
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="top-bar">
+            <div class="page-title">
+                <h1>الطلبات</h1>
+                <p>إدارة ومتابعة طلبات العملاء</p>
+            </div>
+        </div>
+
+        <!-- Filters -->
+        <div class="filters-bar">
+            <div class="filter-group">
+                <label class="filter-label">الحالة:</label>
+                <select class="filter-select" id="statusFilter">
+                    <option value="all">الكل</option>
+                    <option value="pending">قيد الانتظار</option>
+                    <option value="processing">قيد التنفيذ</option>
+                    <option value="completed">مكتمل</option>
+                    <option value="cancelled">ملغي</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label class="filter-label">البحث:</label>
+                <input type="text" class="filter-input" id="searchFilter" placeholder="رقم الطلب، اسم العميل، هاتف...">
+            </div>
+
+            <button class="btn-filter" id="applyFilters">
+                <i class="fas fa-filter"></i>
+                تطبيق
+            </button>
+        </div>
+
+        <!-- Orders Table -->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">
+                    <i class="fas fa-list" style="color: var(--color-primary); margin-left: 8px;"></i>
+                    قائمة الطلبات
+                </h3>
+                <span style="color: var(--text-muted); font-size: 14px;" id="ordersCount">0 طلب</span>
+            </div>
+            <div class="table-container">
+                <table class="data-table" id="ordersTable">
+                    <thead>
+                        <tr>
+                            <th>رقم الطلب</th>
+                            <th>العميل</th>
+                            <th>المنتجات</th>
+                            <th>الإجمالي</th>
+                            <th>الحالة</th>
+                            <th>التاريخ</th>
+                            <th>الإجراءات</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ordersTableBody">
+                        <!-- Orders loaded by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <!-- Order Details Modal -->
+    <div class="modal-overlay" id="modalOverlay"></div>
+    <div class="modal" id="orderModal">
+        <div class="modal-header">
+            <h3 class="modal-title" id="modalTitle">تفاصيل الطلب</h3>
+            <button class="modal-close" id="modalClose">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="modal-body" id="modalBody">
+            <!-- Details loaded by JS -->
+        </div>
+        <div class="modal-footer" id="modalFooter">
+            <!-- Buttons loaded by JS -->
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
+    <script src="js/admin/auth.js"></script>
+    <script src="js/admin/sidebar.js"></script>
+    
+    <script>
+    (function() {
+        'use strict';
+
+        // ─── API Configuration ───
+        const API_URL = '/api/orders.php';
+
+        // ─── Protect Page ───
+        if (!AuthAPI.protectPage('orders')) {
+            return;
+        }
+
+        // ─── DOM Elements ───
+        const userAvatar = document.getElementById('userAvatar');
+        const userName = document.getElementById('userName');
+        const userRole = document.getElementById('userRole');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const mobileToggle = document.getElementById('mobileToggle');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+        const employeesNav = document.getElementById('employeesNav');
+        const statusFilter = document.getElementById('statusFilter');
+        const searchFilter = document.getElementById('searchFilter');
+        const applyFilters = document.getElementById('applyFilters');
+        const ordersTableBody = document.getElementById('ordersTableBody');
+        const ordersCount = document.getElementById('ordersCount');
+        const ordersBadge = document.getElementById('ordersBadge');
+        const modalOverlay = document.getElementById('modalOverlay');
+        const orderModal = document.getElementById('orderModal');
+        const modalClose = document.getElementById('modalClose');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalBody = document.getElementById('modalBody');
+        const modalFooter = document.getElementById('modalFooter');
+        const toastContainer = document.getElementById('toastContainer');
+
+        let allOrders = [];
+        let currentOrder = null;
+
+        // ─── Initialize ───
+        async function init() {
+            initUserInfo();
+            await loadOrders();
+            bindEvents();
+        }
+
+        function initUserInfo() {
+            const user = AuthAPI.getCurrentUser();
+            if (user) {
+                userName.textContent = user.name || user.username;
+                userAvatar.textContent = (user.name || user.username).charAt(0).toUpperCase();
+                userRole.textContent = user.role === 'admin' ? 'مدير النظام' : 'موظف';
+
+                if (user.role !== 'admin' && employeesNav) {
+                    employeesNav.style.display = 'none';
+                }
+            }
+        }
+
+        // ─── Load Orders from API ───
+        async function loadOrders() {
+            try {
+                const response = await fetch(API_URL);
+                const data = await response.json();
+
+                if (!data.success) {
+                    throw new Error(data.error || 'Failed to load orders');
+                }
+
+                allOrders = data.orders || [];
+                renderOrders(allOrders);
+                updateBadge();
+
+            } catch (error) {
+                console.error('API Error:', error);
+                showToast('خطأ', 'تعذر تحميل الطلبات من الخادم', 'error');
+                renderOrders([]);
+            }
+        }
+
+        // ─── Render Orders ───
+        function renderOrders(orders) {
+            ordersCount.textContent = `${orders.length} طلب`;
+
+            if (orders.length === 0) {
+                ordersTableBody.innerHTML = `
+                    <tr>
+                        <td colspan="7">
+                            <div class="empty-state">
+                                <i class="fas fa-inbox"></i>
+                                <h3>لا توجد طلبات</h3>
+                                <p>ستظهر الطلبات هنا عندما يقوم العملاء بالشراء</p>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            ordersTableBody.innerHTML = orders.map(order => {
+                const statusClass = `status-${order.status || 'pending'}`;
+                const statusText = getStatusText(order.status);
+                const itemsCount = order.items ? order.items.length : 0;
+
+                return `
+                    <tr data-order-id="${order.id}">
+                        <td>
+                            <span class="order-id">#${order.id}</span>
+                        </td>
+                        <td>
+                            <div class="customer-info">
+                                <span>${order.customer?.phone || ''}</span>
+                            </div>
+                        </td>
+                        <td>${itemsCount} منتج</td>
+                        <td>
+                            <span class="amount">${(order.total || 0).toFixed(2)} ر.س</span>
+                        </td>
+                        <td>
+                            <span class="status-badge ${statusClass}">
+                                <span class="status-dot"></span>
+                                ${statusText}
+                            </span>
+                        </td>
+                        <td>${formatDate(order.created_at)}</td>
+                        <td>
+                            <div class="actions">
+                                <button class="btn-action view" title="عرض التفاصيل" onclick="viewOrder('${order.id}')">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button class="btn-action telegram" title="إرسال عبر Telegram" onclick="sendTelegram('${order.id}')">
+                                    <i class="fab fa-telegram"></i>
+                                </button>
+                                ${order.status !== 'completed' ? `
+                                <button class="btn-action complete" title="تحديد كمكتمل" onclick="completeOrder('${order.id}')">
+                                    <i class="fas fa-check"></i>
+                                </button>
+                                ` : ''}
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function getStatusText(status) {
+            const statuses = {
+                pending: 'قيد الانتظار',
+                processing: 'قيد التنفيذ',
+                completed: 'مكتمل',
+                cancelled: 'ملغي'
+            };
+            return statuses[status] || 'قيد الانتظار';
+        }
+
+        function formatDate(isoString) {
+            if (!isoString) return '';
+            const date = new Date(isoString);
+            return date.toLocaleDateString('ar-SA', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+
+        // ─── Filter Orders ───
+        async function filterOrders() {
+            const status = statusFilter.value;
+            const search = searchFilter.value.trim().toLowerCase();
+
+            try {
+                let url = API_URL;
+                const params = [];
+                if (status !== 'all') params.push(`status=${encodeURIComponent(status)}`);
+                if (search) params.push(`search=${encodeURIComponent(search)}`);
+                if (params.length > 0) url += '?' + params.join('&');
+
+                const response = await fetch(url);
+                const data = await response.json();
+
+                if (data.success) {
+                    renderOrders(data.orders || []);
+                }
+
+            } catch (error) {
+                console.error('Filter Error:', error);
+            }
+        }
+
+        // ─── View Order Details ───
+        window.viewOrder = async function(orderId) {
+            try {
+                const response = await fetch(`${API_URL}?id=${encodeURIComponent(orderId)}`);
+                const data = await response.json();
+
+                if (!data.success || !data.order) {
+                    showToast('خطأ', 'الطلب غير موجود', 'error');
+                    return;
+                }
+
+                const order = data.order;
+                currentOrder = order;
+
+                modalTitle.textContent = `طلب #${order.id}`;
+
+                modalBody.innerHTML = `
+                    <div class="detail-row">
+                        <span class="detail-label">رقم الطلب</span>
+                        <span class="detail-value">#${order.id}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">التاريخ</span>
+                        <span class="detail-value">${formatDate(order.created_at)}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">الهاتف</span>
+                        <span class="detail-value">${order.customer?.phone || ''}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">التلجرام</span>
+                        <span class="detail-value">${order.customer?.telegram || ''}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">الحالة</span>
+                        <span class="detail-value">
+                            <span class="status-badge status-${order.status || 'pending'}">
+                                <span class="status-dot"></span>
+                                ${getStatusText(order.status)}
+                            </span>
+                        </span>
+                    </div>
+
+                    <div class="items-list">
+                        <h4>المنتجات</h4>
+                        ${(order.items || []).map(item => `
+                            <div class="item-row">
+                                <span class="item-name">${item.name} × ${item.quantity}</span>
+                                <span class="item-price">${(item.total || 0).toFixed(2)} ر.س</span>
+                            </div>
+                        `).join('')}
+                        <div class="item-row" style="border-top: var(--border-subtle); margin-top: var(--space-sm); padding-top: var(--space-md);">
+                            <span class="item-name" style="font-weight: 700; color: var(--text-primary);">الإجمالي</span>
+                            <span class="item-price" style="font-size: 18px;">${(order.total || 0).toFixed(2)} ر.س</span>
+                        </div>
+                    </div>
+                `;
+
+                modalFooter.innerHTML = `
+                    <button class="btn-modal btn-secondary-modal" onclick="closeModal()">
+                        <i class="fas fa-times"></i>
+                        إغلاق
+                    </button>
+                    <button class="btn-modal btn-primary-modal" onclick="sendTelegram('${order.id}')">
+                        <i class="fab fa-telegram"></i>
+                        إرسال للعميل
+                    </button>
+                `;
+
+                openModal();
+
+            } catch (error) {
+                console.error('View Order Error:', error);
+                showToast('خطأ', 'تعذر تحميل تفاصيل الطلب', 'error');
+            }
+        };
+
+        // ─── Send Telegram ───
+        window.sendTelegram = function(orderId) {
+            const order = allOrders.find(o => o.id === orderId);
+            if (!order) return;
+
+            const telegram = order.customer?.telegram;
+            if (!telegram) {
+                showToast('خطأ', 'لا يوجد حساب تلجرام لهذا العميل', 'error');
+                return;
+            }
+
+            const message = encodeURIComponent(`مرحباً ${order.customer.name}،
+
+تم تأكيد طلبك #${order.id}
+الإجمالي: ${order.total.toFixed(2)} ر.س
+
+سنقوم بإرسال التفاصيل قريباً.`);
+            window.open(`https://t.me/${telegram.replace('@', '')}?text=${message}`, '_blank');
+
+            showToast('تم', 'تم فتح Telegram لإرسال الرسالة', 'success');
+            closeModal();
+        };
+
+        // ─── Complete Order ───
+        window.completeOrder = async function(orderId) {
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ id: orderId, status: 'completed' })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    await loadOrders();
+                    showToast('تم', 'تم تحديد الطلب كمكتمل', 'success');
+                } else {
+                    throw new Error(data.error || 'Update failed');
+                }
+
+            } catch (error) {
+                console.error('Complete Order Error:', error);
+                showToast('خطأ', 'تعذر تحديث حالة الطلب', 'error');
+            }
+        };
+
+        // ─── Modal Controls ───
+        function openModal() {
+            modalOverlay.classList.add('active');
+            orderModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        window.closeModal = function() {
+            modalOverlay.classList.remove('active');
+            orderModal.classList.remove('active');
+            document.body.style.overflow = '';
+            currentOrder = null;
+        };
+
+        modalClose?.addEventListener('click', closeModal);
+        modalOverlay?.addEventListener('click', closeModal);
+
+        // ─── Update Badge ───
+        async function updateBadge() {
+            try {
+                const response = await fetch(API_URL + '?stats=1');
+                const data = await response.json();
+                if (data.success) {
+                    ordersBadge.textContent = data.stats.pending || 0;
+                }
+            } catch (e) {
+                console.warn('Badge update failed:', e);
+            }
+        }
+
+        // ─── Toast ───
+        function showToast(title, message, type = 'info') {
+            if (!toastContainer) return;
+
+            const icons = {
+                success: 'fa-check-circle',
+                error: 'fa-times-circle',
+                info: 'fa-info-circle'
+            };
+
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            toast.innerHTML = `
+                <div class="toast-icon">
+                    <i class="fas ${icons[type]}"></i>
+                </div>
+                <div>
+                    <div style="font-weight: 600;">${title}</div>
+                    <div style="font-size: 13px; color: var(--text-secondary);">${message}</div>
+                </div>
+            `;
+
+            toastContainer.appendChild(toast);
+
+            setTimeout(() => {
+                toast.classList.add('toast-out');
+                setTimeout(() => toast.remove(), 300);
+            }, 4000);
+        }
+
+        // ─── Event Binding ───
+        function bindEvents() {
+            applyFilters?.addEventListener('click', filterOrders);
+            statusFilter?.addEventListener('change', filterOrders);
+            searchFilter?.addEventListener('input', debounce(filterOrders, 300));
+
+            mobileToggle?.addEventListener('click', () => {
+                sidebar?.classList.toggle('open');
+                sidebarOverlay?.classList.toggle('show');
+            });
+
+            sidebarOverlay?.addEventListener('click', () => {
+                sidebar?.classList.remove('open');
+                sidebarOverlay?.classList.remove('show');
+            });
+
+            logoutBtn?.addEventListener('click', () => {
+                AuthAPI.logout();
+            });
+        }
+
+        function debounce(func, wait) {
+            let timeout;
+            return function(...args) {
+                clearTimeout(timeout);
+                timeout = setTimeout(() => func.apply(this, args), wait);
+            };
+        }
+
+        // ─── Start ───
+        init();
+
+    })();
+</script>
+</body>
+</html>

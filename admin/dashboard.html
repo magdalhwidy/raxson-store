@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم | Shop Store</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/admin/sidebar.css">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        :root {
+            --color-primary: #7B49FF;
+            --color-primary-dark: #5A2DD6;
+            --color-primary-light: #9B7AFF;
+            --color-secondary: #FF2C79;
+            --color-accent: #00FFD0;
+            --color-success: #00FFD0;
+            --color-warning: #FFB800;
+            --color-error: #FF3366;
+            --bg-primary: #0A0A1A;
+            --bg-secondary: #12122B;
+            --bg-surface: #1A1A3E;
+            --bg-surface-hover: #252550;
+            --text-primary: #FFFFFF;
+            --text-secondary: #A0A0C0;
+            --text-muted: #606080;
+            --border-subtle: 1px solid rgba(123, 73, 255, 0.1);
+            --border-primary: 1px solid rgba(123, 73, 255, 0.2);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+            --space-xs: 4px;
+            --space-sm: 8px;
+            --space-md: 16px;
+            --space-lg: 24px;
+            --space-xl: 32px;
+            --space-2xl: 48px;
+            --transition-fast: 0.2s ease;
+            --transition-normal: 0.3s ease;
+            --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.3);
+            --shadow-glow: 0 0 20px rgba(123, 73, 255, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ─── Sidebar ─── */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 280px;
+            height: 100vh;
+            background: var(--bg-secondary);
+            border-left: var(--border-primary);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar-header {
+            padding: var(--space-lg);
+            border-bottom: var(--border-subtle);
+        }
+
+        .sidebar-brand {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            text-decoration: none;
+        }
+
+        .sidebar-brand-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: white;
+            box-shadow: 0 0 15px rgba(123, 73, 255, 0.3);
+        }
+
+        .sidebar-brand-text h2 {
+            font-size: 18px;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .sidebar-brand-text span {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* User Info */
+        .sidebar-user {
+            padding: var(--space-lg);
+            border-bottom: var(--border-subtle);
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+
+        .user-avatar {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: white;
+            font-weight: 600;
+        }
+
+        .user-info h4 {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .user-info span {
+            font-size: 12px;
+            color: var(--color-accent);
+        }
+
+        /* Navigation */
+        .sidebar-nav {
+            flex: 1;
+            padding: var(--space-md) 0;
+            overflow-y: auto;
+        }
+
+        .nav-section {
+            margin-bottom: var(--space-md);
+        }
+
+        .nav-section-title {
+            padding: var(--space-sm) var(--space-lg);
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            padding: var(--space-md) var(--space-lg);
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: var(--transition-fast);
+            position: relative;
+            border-right: 3px solid transparent;
+        }
+
+        .nav-item:hover {
+            background: rgba(123, 73, 255, 0.05);
+            color: var(--text-primary);
+        }
+
+        .nav-item.active {
+            background: rgba(123, 73, 255, 0.1);
+            color: var(--color-primary);
+            border-right-color: var(--color-primary);
+        }
+
+        .nav-item i {
+            width: 24px;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        .nav-badge {
+            margin-right: auto;
+            padding: 2px 8px;
+            background: var(--color-secondary);
+            color: white;
+            font-size: 11px;
+            font-weight: 600;
+            border-radius: 20px;
+            min-width: 20px;
+            text-align: center;
+        }
+
+        /* Sidebar Footer */
+        .sidebar-footer {
+            padding: var(--space-lg);
+            border-top: var(--border-subtle);
+        }
+
+        .btn-logout {
+            width: 100%;
+            padding: var(--space-md);
+            background: rgba(255, 51, 102, 0.1);
+            border: 1px solid rgba(255, 51, 102, 0.2);
+            border-radius: var(--radius-md);
+            color: var(--color-error);
+            font-family: 'Cairo', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+            transition: var(--transition-fast);
+        }
+
+        .btn-logout:hover {
+            background: rgba(255, 51, 102, 0.2);
+        }
+
+        /* ─── Main Content ─── */
+        .main-content {
+            margin-right: 280px;
+            padding: var(--space-xl);
+            min-height: 100vh;
+        }
+
+        /* Top Bar */
+        .top-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: var(--space-xl);
+        }
+
+        .page-title h1 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: var(--space-xs);
+        }
+
+        .page-title p {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .top-actions {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+
+        .btn-icon {
+            width: 42px;
+            height: 42px;
+            background: var(--bg-surface);
+            border: var(--border-primary);
+            border-radius: var(--radius-md);
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            position: relative;
+        }
+
+        .btn-icon:hover {
+            background: var(--bg-surface-hover);
+            color: var(--color-primary);
+            border-color: rgba(123, 73, 255, 0.3);
+        }
+
+        .btn-icon .badge {
+            position: absolute;
+            top: -4px;
+            left: -4px;
+            width: 18px;
+            height: 18px;
+            background: var(--color-secondary);
+            color: white;
+            font-size: 10px;
+            font-weight: 700;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* ─── Stats Cards ─── */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--space-lg);
+            margin-bottom: var(--space-xl);
+        }
+
+        .stat-card {
+            background: var(--bg-surface);
+            border: var(--border-subtle);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition-normal);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-glow);
+            border-color: rgba(123, 73, 255, 0.2);
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+        }
+
+        .stat-card.sales::before { background: linear-gradient(90deg, var(--color-primary), var(--color-secondary)); }
+        .stat-card.orders::before { background: linear-gradient(90deg, var(--color-accent), var(--color-primary)); }
+        .stat-card.customers::before { background: linear-gradient(90deg, var(--color-warning), var(--color-secondary)); }
+        .stat-card.products::before { background: linear-gradient(90deg, var(--color-secondary), var(--color-accent)); }
+
+        .stat-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: var(--space-md);
+        }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .stat-card.sales .stat-icon { background: rgba(123, 73, 255, 0.1); color: var(--color-primary); }
+        .stat-card.orders .stat-icon { background: rgba(0, 255, 208, 0.1); color: var(--color-accent); }
+        .stat-card.customers .stat-icon { background: rgba(255, 184, 0, 0.1); color: var(--color-warning); }
+        .stat-card.products .stat-icon { background: rgba(255, 44, 121, 0.1); color: var(--color-secondary); }
+
+        .stat-trend {
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .stat-trend.up { color: var(--color-success); }
+        .stat-trend.down { color: var(--color-error); }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: var(--space-xs);
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        /* ─── Charts Section ─── */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: var(--space-lg);
+            margin-bottom: var(--space-xl);
+        }
+
+        .card {
+            background: var(--bg-surface);
+            border: var(--border-subtle);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--space-lg);
+            border-bottom: var(--border-subtle);
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .card-actions {
+            display: flex;
+            gap: var(--space-sm);
+        }
+
+        .btn-sm {
+            padding: var(--space-sm) var(--space-md);
+            background: rgba(123, 73, 255, 0.1);
+            border: var(--border-primary);
+            border-radius: var(--radius-sm);
+            color: var(--color-primary);
+            font-family: 'Cairo', sans-serif;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        .btn-sm:hover {
+            background: rgba(123, 73, 255, 0.2);
+        }
+
+        .card-body {
+            padding: var(--space-lg);
+        }
+
+        /* Chart Placeholder */
+        .chart-container {
+            height: 300px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            gap: var(--space-md);
+            padding: var(--space-md) 0;
+        }
+
+        .chart-bar {
+            flex: 1;
+            background: linear-gradient(to top, var(--color-primary), var(--color-primary-light));
+            border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+            position: relative;
+            transition: var(--transition-normal);
+            min-height: 20px;
+        }
+
+        .chart-bar:hover {
+            filter: brightness(1.3);
+        }
+
+        .chart-bar-label {
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 11px;
+            color: var(--text-muted);
+            white-space: nowrap;
+        }
+
+        .chart-bar-value {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--color-accent);
+        }
+
+        /* Recent Orders */
+        .orders-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+        }
+
+        .order-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            padding: var(--space-md);
+            background: rgba(10, 10, 26, 0.5);
+            border: var(--border-subtle);
+            border-radius: var(--radius-md);
+            transition: var(--transition-fast);
+        }
+
+        .order-item:hover {
+            border-color: rgba(123, 73, 255, 0.2);
+            background: rgba(123, 73, 255, 0.05);
+        }
+
+        .order-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(123, 73, 255, 0.1);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-primary);
+            font-size: 16px;
+        }
+
+        .order-info {
+            flex: 1;
+        }
+
+        .order-info h4 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .order-info span {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .order-amount {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--color-accent);
+        }
+
+        .order-status {
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .status-pending {
+            background: rgba(255, 184, 0, 0.1);
+            color: var(--color-warning);
+        }
+
+        .status-completed {
+            background: rgba(0, 255, 208, 0.1);
+            color: var(--color-success);
+        }
+
+        .status-processing {
+            background: rgba(123, 73, 255, 0.1);
+            color: var(--color-primary);
+        }
+
+        /* ─── Mobile Toggle ─── */
+        .mobile-toggle {
+            display: none;
+            position: fixed;
+            top: var(--space-lg);
+            left: var(--space-lg);
+            z-index: 200;
+            width: 45px;
+            height: 45px;
+            background: var(--bg-surface);
+            border: var(--border-primary);
+            border-radius: var(--radius-md);
+            color: var(--text-primary);
+            font-size: 18px;
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* ─── Responsive ─── */
+        @media (max-width: 1200px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(100%);
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-right: 0;
+                padding: var(--space-lg);
+                padding-top: 80px;
+            }
+
+            .mobile-toggle {
+                display: flex;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .top-bar {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: var(--space-md);
+            }
+        }
+
+        /* Overlay for mobile */
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 99;
+        }
+
+        .sidebar-overlay.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Mobile Toggle -->
+    <button class="mobile-toggle" id="mobileToggle">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="dashboard.html" class="sidebar-brand">
+                <div class="sidebar-brand-icon">
+                    <i class="fas fa-store"></i>
+                </div>
+                <div class="sidebar-brand-text">
+                    <h2>Shop Store</h2>
+                    <span>لوحة التحكم</span>
+                </div>
+            </a>
+        </div>
+
+        <div class="sidebar-user">
+            <div class="user-avatar" id="userAvatar">م</div>
+            <div class="user-info">
+                <h4 id="userName">المدير</h4>
+                <span id="userRole">مدير النظام</span>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+            <div class="nav-section">
+                <div class="nav-section-title">القائمة الرئيسية</div>
+                <a href="dashboard.html" class="nav-item active">
+                    <i class="fas fa-chart-line"></i>
+                    <span>لوحة التحكم</span>
+                </a>
+                <a href="orders.html" class="nav-item">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span>الطلبات</span>
+                    <span class="nav-badge" id="ordersBadge">0</span>
+                </a>
+                <a href="products.html" class="nav-item">
+                    <i class="fas fa-box"></i>
+                    <span>المنتجات</span>
+                </a>
+                <a href="employees.html" class="nav-item" id="employeesNav">
+                    <i class="fas fa-users"></i>
+                    <span>الموظفين</span>
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">الإعدادات</div>
+                <a href="settings.html" class="nav-item">
+                    <i class="fas fa-cog"></i>
+                    <span>إعدادات الموقع</span>
+                </a>
+            </div>
+        </nav>
+
+        <div class="sidebar-footer">
+            <button class="btn-logout" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>تسجيل الخروج</span>
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <div class="page-title">
+                <h1>لوحة التحكم</h1>
+                <p>نظرة عامة على أداء المتجر</p>
+            </div>
+            <div class="top-actions">
+                <button class="btn-icon" title="الإشعارات">
+                    <i class="fas fa-bell"></i>
+                    <span class="badge">3</span>
+                </button>
+                <button class="btn-icon" title="الرسائل">
+                    <i class="fas fa-envelope"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="stats-grid">
+            <div class="stat-card sales">
+                <div class="stat-header">
+                    <div class="stat-icon">
+                        <i class="fas fa-wallet"></i>
+                    </div>
+                    <div class="stat-trend up">
+                        <i class="fas fa-arrow-up"></i>
+                        <span>+12%</span>
+                    </div>
+                </div>
+                <div class="stat-value" id="totalSales">0 ر.س</div>
+                <div class="stat-label">إجمالي المبيعات</div>
+            </div>
+
+            <div class="stat-card orders">
+                <div class="stat-header">
+                    <div class="stat-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <div class="stat-trend up">
+                        <i class="fas fa-arrow-up"></i>
+                        <span>+8%</span>
+                    </div>
+                </div>
+                <div class="stat-value" id="totalOrders">0</div>
+                <div class="stat-label">عدد الطلبات</div>
+            </div>
+
+            <div class="stat-card customers">
+                <div class="stat-header">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-trend down">
+                        <i class="fas fa-arrow-down"></i>
+                        <span>-2%</span>
+                    </div>
+                </div>
+                <div class="stat-value" id="totalCustomers">0</div>
+                <div class="stat-label">العملاء</div>
+            </div>
+
+            <div class="stat-card products">
+                <div class="stat-header">
+                    <div class="stat-icon">
+                        <i class="fas fa-box-open"></i>
+                    </div>
+                    <div class="stat-trend up">
+                        <i class="fas fa-arrow-up"></i>
+                        <span>+5%</span>
+                    </div>
+                </div>
+                <div class="stat-value" id="totalProducts">24</div>
+                <div class="stat-label">المنتجات</div>
+            </div>
+        </div>
+
+        <!-- Dashboard Grid -->
+        <div class="dashboard-grid">
+            <!-- Sales Chart -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <i class="fas fa-chart-bar" style="color: var(--color-primary); margin-left: 8px;"></i>
+                        المبيعات الأسبوعية
+                    </h3>
+                    <div class="card-actions">
+                        <button class="btn-sm">أسبوع</button>
+                        <button class="btn-sm">شهر</button>
+                        <button class="btn-sm">سنة</button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="chart-container" id="salesChart">
+                        <!-- Chart bars will be generated by JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Orders -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <i class="fas fa-clock" style="color: var(--color-accent); margin-left: 8px;"></i>
+                        آخر الطلبات
+                    </h3>
+                    <a href="orders.html" class="btn-sm">عرض الكل</a>
+                </div>
+                <div class="card-body">
+                    <div class="orders-list" id="recentOrders">
+                        <!-- Orders will be loaded by JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
+    <script src="js/admin/auth.js"></script>
+    <script src="js/admin/sidebar.js"></script>
+
+    <script>
+    (function() {
+        'use strict';
+
+        // ─── API Configuration ───
+        const API_URL = '/api/orders.php';
+        const PRODUCTS_API_URL = '/api/products.php';
+
+        // ─── Protect Page ───
+        // Non-blocking: load stats even if auth check fails
+        AuthAPI.protectPage('dashboard');
+
+        // ─── DOM Elements ───
+        const userAvatar = document.getElementById('userAvatar');
+        const userName = document.getElementById('userName');
+        const userRole = document.getElementById('userRole');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const mobileToggle = document.getElementById('mobileToggle');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+        const employeesNav = document.getElementById('employeesNav');
+
+        // ─── Initialize User Info ───
+        function initUserInfo() {
+            const user = AuthAPI.getCurrentUser();
+            if (user) {
+                userName.textContent = user.name || user.username;
+                userAvatar.textContent = (user.name || user.username).charAt(0).toUpperCase();
+                userRole.textContent = user.role === 'admin' ? 'مدير النظام' : 'موظف';
+
+                // Hide employees link for non-admin
+                if (user.role !== 'admin' && employeesNav) {
+                    employeesNav.style.display = 'none';
+                }
+            }
+        }
+
+        // ─── Load Dashboard Data from API ───
+        async function loadDashboardData() {
+            try {
+                // Load orders stats
+                const statsResponse = await fetch(API_URL + '?stats=1');
+                const statsData = await statsResponse.json();
+
+                if (statsData.success) {
+                    const stats = statsData.stats;
+                    document.getElementById('totalSales').textContent = stats.totalSales.toFixed(2) + ' ر.س';
+                    document.getElementById('totalOrders').textContent = stats.totalOrders;
+                    document.getElementById('totalCustomers').textContent = stats.customers;
+                    document.getElementById('ordersBadge').textContent = stats.pending;
+                }
+
+                // Load products count
+                const productsResponse = await fetch(PRODUCTS_API_URL + '?stats=1');
+                const productsData = await productsResponse.json();
+
+                if (productsData.success) {
+                    document.getElementById('totalProducts').textContent = productsData.stats.total;
+                }
+
+                // Load recent orders
+                const recentResponse = await fetch(API_URL + '?recent=5');
+                const recentData = await recentResponse.json();
+
+                if (recentData.success) {
+                    renderRecentOrders(recentData.orders);
+                    renderChart(recentData.orders);
+                }
+
+            } catch (error) {
+                console.error('Dashboard API Error:', error);
+                showErrorState();
+            }
+        }
+
+        // ─── Render Chart ───
+        function renderChart(orders) {
+            const chart = document.getElementById('salesChart');
+            if (!chart) return;
+
+            // Group orders by day (last 7 days)
+            const days = ['الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'];
+            const today = new Date();
+            const dailySales = {};
+
+            // Initialize all days with 0
+            for (let i = 6; i >= 0; i--) {
+                const date = new Date(today);
+                date.setDate(date.getDate() - i);
+                const dayName = days[date.getDay()];
+                dailySales[dayName] = 0;
+            }
+
+            // Calculate sales per day
+            orders.forEach(order => {
+                const orderDate = new Date(order.created_at);
+                const dayDiff = Math.floor((today - orderDate) / (1000 * 60 * 60 * 24));
+                if (dayDiff >= 0 && dayDiff < 7) {
+                    const dayName = days[orderDate.getDay()];
+                    if (dailySales[dayName] !== undefined) {
+                        dailySales[dayName] += order.total || 0;
+                    }
+                }
+            });
+
+            // Find max for scaling
+            const maxSales = Math.max(...Object.values(dailySales), 1);
+
+            // Render bars
+            chart.innerHTML = Object.entries(dailySales).map(([day, sales]) => {
+                const height = (sales / maxSales) * 100;
+                return `
+                    <div class="chart-bar" style="height: ${Math.max(height, 5)}%">
+                        <span class="chart-bar-value">${sales > 0 ? sales.toFixed(0) : ''}</span>
+                        <span class="chart-bar-label">${day}</span>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // ─── Render Recent Orders ───
+        function renderRecentOrders(orders) {
+            const container = document.getElementById('recentOrders');
+            if (!container) return;
+
+            if (orders.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align: center; padding: var(--space-xl); color: var(--text-muted);">
+                        <i class="fas fa-inbox" style="font-size: 48px; margin-bottom: var(--space-md); display: block;"></i>
+                        <p>لا توجد طلبات حالياً</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = orders.map(order => {
+                const statusClass = order.status === 'completed' ? 'status-completed' :
+                                   order.status === 'processing' ? 'status-processing' : 'status-pending';
+                const statusText = order.status === 'completed' ? 'مكتمل' :
+                                  order.status === 'processing' ? 'قيد التنفيذ' : 'قيد الانتظار';
+
+                return `
+                    <div class="order-item">
+                        <div class="order-icon">
+                            <i class="fas fa-shopping-bag"></i>
+                        </div>
+                        <div class="order-info">
+                            <h4>طلب #${order.id}</h4>
+                            <span>${order.customer?.name || 'عميل'} • ${formatDate(order.created_at)}</span>
+                        </div>
+                        <div class="order-amount">${order.total?.toFixed(2) || 0} ر.س</div>
+                        <span class="order-status ${statusClass}">${statusText}</span>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function showErrorState() {
+            const recentOrders = document.getElementById('recentOrders');
+            if (recentOrders) {
+                recentOrders.innerHTML = `
+                    <div style="text-align: center; padding: var(--space-xl); color: var(--text-muted);">
+                        <i class="fas fa-exclamation-triangle" style="font-size: 48px; margin-bottom: var(--space-md); display: block;"></i>
+                        <p>تعذر تحميل البيانات من الخادم</p>
+                    </div>
+                `;
+            }
+        }
+
+        function formatDate(isoString) {
+            if (!isoString) return '';
+            const date = new Date(isoString);
+            return date.toLocaleDateString('ar-SA', {
+                month: 'short',
+                day: 'numeric'
+            });
+        }
+
+        // ─── Mobile Menu ───
+        mobileToggle?.addEventListener('click', () => {
+            sidebar?.classList.toggle('open');
+            sidebarOverlay?.classList.toggle('show');
+        });
+
+        sidebarOverlay?.addEventListener('click', () => {
+            sidebar?.classList.remove('open');
+            sidebarOverlay?.classList.remove('show');
+        });
+
+        // ─── Logout ───
+        logoutBtn?.addEventListener('click', () => {
+            AuthAPI.logout();
+        });
+
+        // ─── Initialize ───
+        initUserInfo();
+        loadDashboardData();
+
+    })();
+</script>
+</body>
+</html>

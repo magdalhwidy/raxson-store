@@ -1,0 +1,265 @@
+/* ============================================
+   🤖 Chatbot Widget - Raxson Store
+   ============================================ */
+
+.chatbot-widget {
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+    z-index: 9998;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+/* ─── Chat Button ─── */
+.chatbot-btn {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #e91e63, #ff2c79);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 20px rgba(233, 30, 99, 0.4),
+                0 0 0 4px rgba(233, 30, 99, 0.1);
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+    animation: chatbotFloat 3s ease-in-out infinite;
+}
+
+.chatbot-btn:hover {
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 6px 30px rgba(233, 30, 99, 0.5),
+                0 0 0 6px rgba(233, 30, 99, 0.15);
+}
+
+.chatbot-btn:active {
+    transform: scale(0.95);
+}
+
+.chatbot-btn i {
+    font-size: 24px;
+    color: white;
+    transition: transform 0.3s ease;
+}
+
+.chatbot-btn.active i {
+    transform: rotate(90deg);
+}
+
+/* Pulse animation ring */
+.chatbot-btn::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: rgba(233, 30, 99, 0.3);
+    animation: chatbotPulse 2s ease-out infinite;
+    z-index: -1;
+}
+
+@keyframes chatbotFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+}
+
+@keyframes chatbotPulse {
+    0% { transform: scale(1); opacity: 0.6; }
+    100% { transform: scale(1.6); opacity: 0; }
+}
+
+/* ─── Chat Popup ─── */
+.chatbot-popup {
+    position: absolute;
+    bottom: 70px;
+    right: 0;
+    left: auto;
+    width: 280px;
+    background: linear-gradient(135deg, rgba(26, 26, 62, 0.98), rgba(10, 10, 26, 0.98));
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(123, 73, 255, 0.2);
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5),
+                0 0 40px rgba(123, 73, 255, 0.1);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px) scale(0.9);
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transform-origin: bottom right;
+}
+
+.chatbot-popup.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+}
+
+/* Popup arrow */
+.chatbot-popup::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    right: 24px;
+    width: 16px;
+    height: 16px;
+    background: linear-gradient(135deg, rgba(26, 26, 62, 0.98), rgba(10, 10, 26, 0.98));
+    border-right: 1px solid rgba(123, 73, 255, 0.2);
+    border-bottom: 1px solid rgba(123, 73, 255, 0.2);
+    transform: rotate(45deg);
+}
+
+/* ─── Popup Header ─── */
+.chatbot-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(123, 73, 255, 0.1);
+}
+
+.chatbot-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #e91e63, #7b49ff);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.chatbot-info h4 {
+    color: white;
+    font-size: 14px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.chatbot-info p {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 11px;
+    margin: 2px 0 0;
+}
+
+.chatbot-status {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.chatbot-status-dot {
+    width: 6px;
+    height: 6px;
+    background: #00e676;
+    border-radius: 50%;
+    animation: statusBlink 2s ease-in-out infinite;
+}
+
+@keyframes statusBlink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+}
+
+/* ─── Popup Body ─── */
+.chatbot-body {
+    margin-bottom: 16px;
+}
+
+.chatbot-body p {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 13px;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* ─── Contact Buttons ─── */
+.chatbot-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.chatbot-action {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+}
+
+.chatbot-action i {
+    font-size: 18px;
+    width: 24px;
+    text-align: center;
+}
+
+/* WhatsApp */
+.chatbot-action.whatsapp {
+    background: rgba(37, 211, 102, 0.1);
+    color: #25d366;
+    border-color: rgba(37, 211, 102, 0.2);
+}
+
+.chatbot-action.whatsapp:hover {
+    background: rgba(37, 211, 102, 0.2);
+    transform: translateX(4px);
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.2);
+}
+
+/* Telegram */
+.chatbot-action.telegram {
+    background: rgba(0, 136, 204, 0.1);
+    color: #0088cc;
+    border-color: rgba(0, 136, 204, 0.2);
+}
+
+.chatbot-action.telegram:hover {
+    background: rgba(0, 136, 204, 0.2);
+    transform: translateX(4px);
+    box-shadow: 0 4px 15px rgba(0, 136, 204, 0.2);
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 480px) {
+    .chatbot-widget {
+        bottom: 80px;
+        right: 12px;
+    }
+
+    .chatbot-btn {
+        width: 50px;
+        height: 50px;
+    }
+
+    .chatbot-btn i {
+        font-size: 20px;
+    }
+
+    .chatbot-popup {
+        width: 260px;
+        padding: 16px;
+        bottom: 64px;
+        right: 0;
+        left: auto;
+    }
+}
+
+/* Hide on very small screens if needed */
+@media (max-width: 320px) {
+    .chatbot-widget {
+        display: none;
+    }
+}

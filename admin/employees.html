@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الموظفين | لوحة التحكم</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/admin/sidebar.css">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        :root {
+            --color-primary: #7B49FF;
+            --color-primary-dark: #5A2DD6;
+            --color-primary-light: #9B7AFF;
+            --color-secondary: #FF2C79;
+            --color-accent: #00FFD0;
+            --color-success: #00FFD0;
+            --color-warning: #FFB800;
+            --color-error: #FF3366;
+            --bg-primary: #0A0A1A;
+            --bg-secondary: #12122B;
+            --bg-surface: #1A1A3E;
+            --bg-surface-hover: #252550;
+            --text-primary: #FFFFFF;
+            --text-secondary: #A0A0C0;
+            --text-muted: #606080;
+            --border-subtle: 1px solid rgba(123, 73, 255, 0.1);
+            --border-primary: 1px solid rgba(123, 73, 255, 0.2);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --space-xs: 4px;
+            --space-sm: 8px;
+            --space-md: 16px;
+            --space-lg: 24px;
+            --space-xl: 32px;
+            --space-2xl: 48px;
+            --transition-fast: 0.2s ease;
+            --transition-normal: 0.3s ease;
+            --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.3);
+            --shadow-glow: 0 0 20px rgba(123, 73, 255, 0.15);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+
+        /* ─── Sidebar ─── */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 280px;
+            height: 100vh;
+            background: var(--bg-secondary);
+            border-left: var(--border-primary);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar-header {
+            padding: var(--space-lg);
+            border-bottom: var(--border-subtle);
+        }
+
+        .sidebar-brand {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            text-decoration: none;
+        }
+
+        .sidebar-brand-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: white;
+            box-shadow: 0 0 15px rgba(123, 73, 255, 0.3);
+        }
+
+        .sidebar-brand-text h2 {
+            font-size: 18px;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .sidebar-brand-text span {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .sidebar-user {
+            padding: var(--space-lg);
+            border-bottom: var(--border-subtle);
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+
+        .user-avatar {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: white;
+            font-weight: 600;
+        }
+
+        .user-info h4 {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .user-info span {
+            font-size: 12px;
+            color: var(--color-accent);
+        }
+
+        .sidebar-nav {
+            flex: 1;
+            padding: var(--space-md) 0;
+            overflow-y: auto;
+        }
+
+        .nav-section {
+            margin-bottom: var(--space-md);
+        }
+
+        .nav-section-title {
+            padding: var(--space-sm) var(--space-lg);
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            padding: var(--space-md) var(--space-lg);
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: var(--transition-fast);
+            position: relative;
+            border-right: 3px solid transparent;
+        }
+
+        .nav-item:hover {
+            background: rgba(123, 73, 255, 0.05);
+            color: var(--text-primary);
+        }
+
+        .nav-item.active {
+            background: rgba(123, 73, 255, 0.1);
+            color: var(--color-primary);
+            border-right-color: var(--color-primary);
+        }
+
+        .nav-item i {
+            width: 24px;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        .nav-badge {
+            margin-right: auto;
+            padding: 2px 8px;
+            background: var(--color-secondary);
+            color: white;
+            font-size: 11px;
+            font-weight: 600;
+            border-radius: 20px;
+            min-width: 20px;
+            text-align: center;
+        }
+
+        .sidebar-footer {
+            padding: var(--space-lg);
+            border-top: var(--border-subtle);
+        }
+
+        .btn-logout {
+            width: 100%;
+            padding: var(--space-md);
+            background: rgba(255, 51, 102, 0.1);
+            border: 1px solid rgba(255, 51, 102, 0.2);
+            border-radius: var(--radius-md);
+            color: var(--color-error);
+            font-family: 'Cairo', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+            transition: var(--transition-fast);
+        }
+
+        .btn-logout:hover {
+            background: rgba(255, 51, 102, 0.2);
+        }
+
+        /* ─── Main Content ─── */
+        .main-content {
+            margin-right: 280px;
+            padding: var(--space-xl);
+            min-height: 100vh;
+        }
+
+        .top-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: var(--space-xl);
+        }
+
+        .page-title h1 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: var(--space-xs);
+        }
+
+        .page-title p {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .top-actions {
+            display: flex;
+            gap: var(--space-md);
+        }
+
+        .btn-primary {
+            padding: var(--space-md) var(--space-lg);
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            border: none;
+            border-radius: var(--radius-md);
+            color: white;
+            font-family: 'Cairo', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            transition: var(--transition-fast);
+        }
+
+        .btn-primary:hover {
+            filter: brightness(1.2);
+            transform: translateY(-2px);
+        }
+
+        /* ─── Stats Cards ─── */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--space-lg);
+            margin-bottom: var(--space-xl);
+        }
+
+        .stat-card {
+            background: var(--bg-surface);
+            border: var(--border-subtle);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition-normal);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-glow);
+            border-color: rgba(123, 73, 255, 0.2);
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+        }
+
+        .stat-card.total::before { background: linear-gradient(90deg, var(--color-primary), var(--color-secondary)); }
+        .stat-card.active::before { background: linear-gradient(90deg, var(--color-success), var(--color-primary)); }
+        .stat-card.pending::before { background: linear-gradient(90deg, var(--color-warning), var(--color-secondary)); }
+        .stat-card.online::before { background: linear-gradient(90deg, var(--color-accent), var(--color-primary)); }
+
+        .stat-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: var(--space-md);
+        }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .stat-card.total .stat-icon { background: rgba(123, 73, 255, 0.1); color: var(--color-primary); }
+        .stat-card.active .stat-icon { background: rgba(0, 255, 208, 0.1); color: var(--color-success); }
+        .stat-card.pending .stat-icon { background: rgba(255, 184, 0, 0.1); color: var(--color-warning); }
+        .stat-card.online .stat-icon { background: rgba(0, 255, 208, 0.1); color: var(--color-accent); }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: var(--space-xs);
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        /* ─── Employees Table ─── */
+        .card {
+            background: var(--bg-surface);
+            border: var(--border-subtle);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--space-lg);
+            border-bottom: var(--border-subtle);
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .data-table th {
+            padding: var(--space-md);
+            text-align: right;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: var(--border-subtle);
+            background: rgba(10, 10, 26, 0.5);
+        }
+
+        .data-table td {
+            padding: var(--space-md);
+            font-size: 14px;
+            border-bottom: var(--border-subtle);
+            color: var(--text-secondary);
+        }
+
+        .data-table tr:hover td {
+            background: rgba(123, 73, 255, 0.03);
+        }
+
+        .data-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Employee Info */
+        .employee-info {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+
+        .employee-avatar {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            color: white;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .employee-details h4 {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 2px;
+        }
+
+        .employee-details span {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* Status Badge */
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-xs);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status-approved {
+            background: rgba(0, 255, 208, 0.1);
+            color: var(--color-success);
+        }
+
+        .status-pending {
+            background: rgba(255, 184, 0, 0.1);
+            color: var(--color-warning);
+        }
+
+        .status-disabled {
+            background: rgba(255, 51, 102, 0.1);
+            color: var(--color-error);
+        }
+
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: currentColor;
+        }
+
+        /* Device Status */
+        .device-status {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-xs);
+            font-size: 12px;
+        }
+
+        .device-bound { color: var(--color-success); }
+        .device-free { color: var(--text-muted); }
+
+        /* Last Login */
+        .last-login {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .last-login.recent { color: var(--color-accent); }
+
+        /* Actions */
+        .actions {
+            display: flex;
+            gap: var(--space-sm);
+        }
+
+        .btn-action {
+            width: 32px;
+            height: 32px;
+            background: transparent;
+            border: var(--border-primary);
+            border-radius: var(--radius-sm);
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            font-size: 13px;
+        }
+
+        .btn-action:hover {
+            background: rgba(123, 73, 255, 0.1);
+            color: var(--color-primary);
+            border-color: rgba(123, 73, 255, 0.3);
+        }
+
+        .btn-action.edit:hover { color: var(--color-primary); }
+        .btn-action.permissions:hover { color: var(--color-accent); }
+        .btn-action.device:hover { color: var(--color-warning); }
+        .btn-action.toggle:hover { color: var(--color-success); }
+        .btn-action.toggle.disable:hover { color: var(--color-error); }
+        .btn-action.delete:hover { color: var(--color-error); }
+
+        /* ─── Modal ─── */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 500;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition-normal);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
+            width: 90%;
+            max-width: 520px;
+            max-height: 85vh;
+            overflow-y: auto;
+            background: var(--bg-secondary);
+            border: var(--border-primary);
+            border-radius: var(--radius-lg);
+            z-index: 501;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition-normal);
+        }
+
+        .modal.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--space-lg);
+            border-bottom: var(--border-subtle);
+        }
+
+        .modal-title {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .modal-close {
+            width: 36px;
+            height: 36px;
+            background: rgba(255, 51, 102, 0.1);
+            border: none;
+            border-radius: var(--radius-sm);
+            color: var(--color-error);
+            font-size: 16px;
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        .modal-close:hover {
+            background: rgba(255, 51, 102, 0.2);
+        }
+
+        .modal-body {
+            padding: var(--space-lg);
+        }
+
+        .modal-footer {
+            display: flex;
+            gap: var(--space-md);
+            padding: var(--space-lg);
+            border-top: var(--border-subtle);
+        }
+
+        .btn-modal {
+            flex: 1;
+            padding: var(--space-md);
+            border: none;
+            border-radius: var(--radius-sm);
+            font-family: 'Cairo', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+            transition: var(--transition-fast);
+        }
+
+        .btn-primary-modal {
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            color: white;
+        }
+
+        .btn-primary-modal:hover {
+            filter: brightness(1.2);
+        }
+
+        .btn-secondary-modal {
+            background: var(--bg-surface);
+            border: var(--border-primary);
+            color: var(--text-secondary);
+        }
+
+        .btn-secondary-modal:hover {
+            background: var(--bg-surface-hover);
+            color: var(--text-primary);
+        }
+
+        .btn-danger-modal {
+            background: rgba(255, 51, 102, 0.1);
+            border: 1px solid rgba(255, 51, 102, 0.3);
+            color: var(--color-error);
+        }
+
+        .btn-danger-modal:hover {
+            background: rgba(255, 51, 102, 0.2);
+        }
+
+        /* ─── Form Styles ─── */
+        .form-group {
+            margin-bottom: var(--space-lg);
+        }
+
+        .form-label {
+            display: block;
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-bottom: var(--space-sm);
+            font-weight: 500;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: var(--space-md);
+            background: rgba(10, 10, 26, 0.6);
+            border: 1px solid rgba(123, 73, 255, 0.2);
+            border-radius: var(--radius-sm);
+            color: var(--text-primary);
+            font-size: 14px;
+            font-family: 'Cairo', sans-serif;
+            transition: var(--transition-fast);
+            outline: none;
+        }
+
+        .form-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .form-input:focus {
+            border-color: var(--color-primary);
+            box-shadow: 0 0 15px rgba(123, 73, 255, 0.2);
+        }
+
+        .form-hint {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: var(--space-xs);
+        }
+
+        /* Permissions Grid */
+        .permissions-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-md);
+            margin-top: var(--space-md);
+        }
+
+        .permission-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: var(--space-md);
+            background: rgba(10, 10, 26, 0.5);
+            border: var(--border-subtle);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        .permission-item:hover {
+            border-color: rgba(123, 73, 255, 0.3);
+        }
+
+        .permission-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--color-primary);
+            cursor: pointer;
+        }
+
+        .permission-item label {
+            font-size: 14px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .permission-item.checked {
+            border-color: rgba(123, 73, 255, 0.4);
+            background: rgba(123, 73, 255, 0.05);
+        }
+
+        .permission-item.checked label {
+            color: var(--text-primary);
+        }
+
+        /* ─── Empty State ─── */
+        .empty-state {
+            text-align: center;
+            padding: var(--space-2xl);
+        }
+
+        .empty-state i {
+            font-size: 64px;
+            color: var(--text-muted);
+            margin-bottom: var(--space-lg);
+            display: block;
+        }
+
+        .empty-state h3 {
+            font-size: 18px;
+            color: var(--text-secondary);
+            margin-bottom: var(--space-sm);
+        }
+
+        .empty-state p {
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        /* ─── Toast ─── */
+        .toast-container {
+            position: fixed;
+            top: var(--space-lg);
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+        }
+
+        .toast {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            padding: var(--space-md) var(--space-lg);
+            background: var(--bg-surface);
+            border: var(--border-primary);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-card);
+            color: var(--text-primary);
+            font-size: 14px;
+            min-width: 300px;
+            animation: toastIn 0.3s ease;
+        }
+
+        .toast.toast-out {
+            animation: toastOut 0.3s ease forwards;
+        }
+
+        @keyframes toastIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes toastOut {
+            from { opacity: 1; transform: translateY(0); }
+            to { opacity: 0; transform: translateY(-20px); }
+        }
+
+        .toast-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .toast-success .toast-icon { background: rgba(0, 255, 208, 0.1); color: var(--color-success); }
+        .toast-error .toast-icon { background: rgba(255, 51, 102, 0.1); color: var(--color-error); }
+        .toast-warning .toast-icon { background: rgba(255, 184, 0, 0.1); color: var(--color-warning); }
+
+        /* ─── Confirm Dialog ─── */
+        .confirm-text {
+            text-align: center;
+            padding: var(--space-lg) 0;
+        }
+
+        .confirm-text i {
+            font-size: 48px;
+            color: var(--color-warning);
+            margin-bottom: var(--space-md);
+            display: block;
+        }
+
+        .confirm-text h4 {
+            font-size: 16px;
+            color: var(--text-primary);
+            margin-bottom: var(--space-sm);
+        }
+
+        .confirm-text p {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        /* ─── Mobile ─── */
+        .mobile-toggle {
+            display: none;
+            position: fixed;
+            top: var(--space-lg);
+            left: var(--space-lg);
+            z-index: 200;
+            width: 45px;
+            height: 45px;
+            background: var(--bg-surface);
+            border: var(--border-primary);
+            border-radius: var(--radius-md);
+            color: var(--text-primary);
+            font-size: 18px;
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 99;
+        }
+
+        .sidebar-overlay.show {
+            display: block;
+        }
+
+        @media (max-width: 1200px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(100%);
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-right: 0;
+                padding: var(--space-lg);
+                padding-top: 80px;
+            }
+
+            .mobile-toggle {
+                display: flex;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .permissions-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .data-table {
+                font-size: 12px;
+            }
+
+            .data-table th,
+            .data-table td {
+                padding: var(--space-sm);
+            }
+
+            .top-bar {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: var(--space-md);
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="mobile-toggle" id="mobileToggle">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="dashboard.html" class="sidebar-brand">
+                <div class="sidebar-brand-icon">
+                    <i class="fas fa-store"></i>
+                </div>
+                <div class="sidebar-brand-text">
+                    <h2>Shop Store</h2>
+                    <span>لوحة التحكم</span>
+                </div>
+            </a>
+        </div>
+
+        <div class="sidebar-user">
+            <div class="user-avatar" id="userAvatar">م</div>
+            <div class="user-info">
+                <h4 id="userName">المدير</h4>
+                <span id="userRole">مدير النظام</span>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+            <div class="nav-section">
+                <div class="nav-section-title">القائمة الرئيسية</div>
+                <a href="dashboard.html" class="nav-item">
+                    <i class="fas fa-chart-line"></i>
+                    <span>لوحة التحكم</span>
+                </a>
+                <a href="orders.html" class="nav-item">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span>الطلبات</span>
+                    <span class="nav-badge" id="ordersBadge">0</span>
+                </a>
+                <a href="products.html" class="nav-item">
+                    <i class="fas fa-box"></i>
+                    <span>المنتجات</span>
+                </a>
+                <a href="employees.html" class="nav-item active" id="employeesNav">
+                    <i class="fas fa-users"></i>
+                    <span>الموظفين</span>
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">الإعدادات</div>
+                <a href="settings.html" class="nav-item">
+                    <i class="fas fa-cog"></i>
+                    <span>إعدادات الموقع</span>
+                </a>
+            </div>
+        </nav>
+
+        <div class="sidebar-footer">
+            <button class="btn-logout" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>تسجيل الخروج</span>
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="top-bar">
+            <div class="page-title">
+                <h1>إدارة الموظفين</h1>
+                <p>إدارة فريق العمل والصلاحيات</p>
+            </div>
+            <div class="top-actions" id="adminActions">
+                <button class="btn-primary" id="addEmployeeBtn">
+                    <i class="fas fa-plus"></i>
+                    إضافة موظف جديد
+                </button>
+            </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats-grid">
+            <div class="stat-card total">
+                <div class="stat-header">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                </div>
+                <div class="stat-value" id="totalEmployees">0</div>
+                <div class="stat-label">إجمالي الموظفين</div>
+            </div>
+            <div class="stat-card active">
+                <div class="stat-header">
+                    <div class="stat-icon">
+                        <i class="fas fa-user-check"></i>
+                    </div>
+                </div>
+                <div class="stat-value" id="activeEmployees">0</div>
+                <div class="stat-label">نشطين</div>
+            </div>
+            <div class="stat-card pending">
+                <div class="stat-header">
+                    <div class="stat-icon">
+                        <i class="fas fa-user-clock"></i>
+                    </div>
+                </div>
+                <div class="stat-value" id="pendingEmployees">0</div>
+                <div class="stat-label">بانتظار الموافقة</div>
+            </div>
+            <div class="stat-card online">
+                <div class="stat-header">
+                    <div class="stat-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                </div>
+                <div class="stat-value" id="deviceBound">0</div>
+                <div class="stat-label">مرتبطين بجهاز</div>
+            </div>
+        </div>
+
+        <!-- Employees Table -->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">
+                    <i class="fas fa-list" style="color: var(--color-primary); margin-left: 8px;"></i>
+                    قائمة الموظفين
+                </h3>
+                <span style="color: var(--text-muted); font-size: 14px;" id="employeesCount">0 موظف</span>
+            </div>
+            <div class="table-container">
+                <table class="data-table" id="employeesTable">
+                    <thead>
+                        <tr>
+                            <th>الموظف</th>
+                            <th>اسم المستخدم</th>
+                            <th>الحالة</th>
+                            <th>الجهاز</th>
+                            <th>آخر دخول</th>
+                            <th>الإجراءات</th>
+                        </tr>
+                    </thead>
+                    <tbody id="employeesTableBody">
+                        <!-- Loaded by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <!-- Add Employee Modal -->
+    <div class="modal-overlay" id="addModalOverlay"></div>
+    <div class="modal" id="addEmployeeModal">
+        <div class="modal-header">
+            <h3 class="modal-title">إضافة موظف جديد</h3>
+            <button class="modal-close" id="addModalClose">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form id="addEmployeeForm">
+                <div class="form-group">
+                    <label class="form-label">الاسم الكامل</label>
+                    <input type="text" class="form-input" id="empName" placeholder="أدخل اسم الموظف" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">اسم المستخدم</label>
+                    <input type="text" class="form-input" id="empUsername" placeholder="مثال: ahmed_s" required>
+                    <p class="form-hint">يستخدم لتسجيل الدخول — يجب أن يكون فريداً</p>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">كلمة المرور</label>
+                    <input type="text" class="form-input" id="empPassword" placeholder="أدخل كلمة المرور" required>
+                    <p class="form-hint">سيتم تشفيرها تلقائياً</p>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">البريد الإلكتروني (اختياري)</label>
+                    <input type="email" class="form-input" id="empEmail" placeholder="example@email.com">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">رقم الهاتف (اختياري)</label>
+                    <input type="text" class="form-input" id="empPhone" placeholder="05xxxxxxxx">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">الصلاحيات</label>
+                    <div class="permissions-grid">
+                        <div class="permission-item">
+                            <input type="checkbox" id="permDashboard" checked>
+                            <label for="permDashboard">لوحة التحكم</label>
+                        </div>
+                        <div class="permission-item">
+                            <input type="checkbox" id="permOrders" checked>
+                            <label for="permOrders">الطلبات</label>
+                        </div>
+                        <div class="permission-item">
+                            <input type="checkbox" id="permProducts">
+                            <label for="permProducts">المنتجات</label>
+                        </div>
+                        <div class="permission-item">
+                            <input type="checkbox" id="permStatistics">
+                            <label for="permStatistics">الإحصائيات</label>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn-modal btn-secondary-modal" id="cancelAddBtn">
+                <i class="fas fa-times"></i>
+                إلغاء
+            </button>
+            <button class="btn-modal btn-primary-modal" id="saveEmployeeBtn">
+                <i class="fas fa-save"></i>
+                حفظ الموظف
+            </button>
+        </div>
+    </div>
+
+    <!-- Edit Permissions Modal -->
+    <div class="modal-overlay" id="permModalOverlay"></div>
+    <div class="modal" id="permissionsModal">
+        <div class="modal-header">
+            <h3 class="modal-title" id="permModalTitle">تعديل الصلاحيات</h3>
+            <button class="modal-close" id="permModalClose">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="permissions-grid" id="editPermissionsGrid">
+                <div class="permission-item">
+                    <input type="checkbox" id="editPermDashboard">
+                    <label for="editPermDashboard">لوحة التحكم</label>
+                </div>
+                <div class="permission-item">
+                    <input type="checkbox" id="editPermOrders">
+                    <label for="editPermOrders">الطلبات</label>
+                </div>
+                <div class="permission-item">
+                    <input type="checkbox" id="editPermProducts">
+                    <label for="editPermProducts">المنتجات</label>
+                </div>
+                <div class="permission-item">
+                    <input type="checkbox" id="editPermStatistics">
+                    <label for="editPermStatistics">الإحصائيات</label>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn-modal btn-secondary-modal" id="cancelPermBtn">
+                <i class="fas fa-times"></i>
+                إلغاء
+            </button>
+            <button class="btn-modal btn-primary-modal" id="savePermissionsBtn">
+                <i class="fas fa-save"></i>
+                حفظ الصلاحيات
+            </button>
+        </div>
+    </div>
+
+    <!-- Confirm Modal -->
+    <div class="modal-overlay" id="confirmModalOverlay"></div>
+    <div class="modal" id="confirmModal">
+        <div class="modal-header">
+            <h3 class="modal-title" id="confirmModalTitle">تأكيد</h3>
+            <button class="modal-close" id="confirmModalClose">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="confirm-text" id="confirmContent">
+                <!-- Dynamic content -->
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn-modal btn-secondary-modal" id="confirmCancelBtn">
+                <i class="fas fa-times"></i>
+                إلغاء
+            </button>
+            <button class="btn-modal btn-danger-modal" id="confirmActionBtn">
+                <i class="fas fa-check"></i>
+                تأكيد
+            </button>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- CryptoJS for password hashing -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
+
+    <!-- Scripts -->
+    <script src="js/admin/auth.js"></script>
+    <script src="js/admin/sidebar.js"></script>
+      <script>
+        (function() {
+            'use strict';
+
+            // ─── Protect Page ───
+            if (!AuthAPI.protectPage('employees')) {
+                return;
+            }
+
+            // ─── DOM Elements ───
+            const userAvatar = document.getElementById('userAvatar');
+            const userName = document.getElementById('userName');
+            const userRole = document.getElementById('userRole');
+            const logoutBtn = document.getElementById('logoutBtn');
+            const mobileToggle = document.getElementById('mobileToggle');
+            const sidebar = document.getElementById('sidebar');
+            const sidebarOverlay = document.getElementById('sidebarOverlay');
+            const employeesNav = document.getElementById('employeesNav');
+            const adminActions = document.getElementById('adminActions');
+            const addEmployeeBtn = document.getElementById('addEmployeeBtn');
+            const employeesTableBody = document.getElementById('employeesTableBody');
+            const employeesCount = document.getElementById('employeesCount');
+            const toastContainer = document.getElementById('toastContainer');
+
+            // Stats
+            const totalEmployeesEl = document.getElementById('totalEmployees');
+            const activeEmployeesEl = document.getElementById('activeEmployees');
+            const pendingEmployeesEl = document.getElementById('pendingEmployees');
+            const deviceBoundEl = document.getElementById('deviceBound');
+
+            // Add Modal
+            const addModalOverlay = document.getElementById('addModalOverlay');
+            const addEmployeeModal = document.getElementById('addEmployeeModal');
+            const addModalClose = document.getElementById('addModalClose');
+            const cancelAddBtn = document.getElementById('cancelAddBtn');
+            const saveEmployeeBtn = document.getElementById('saveEmployeeBtn');
+            const addEmployeeForm = document.getElementById('addEmployeeForm');
+
+            // Permissions Modal
+            const permModalOverlay = document.getElementById('permModalOverlay');
+            const permissionsModal = document.getElementById('permissionsModal');
+            const permModalClose = document.getElementById('permModalClose');
+            const permModalTitle = document.getElementById('permModalTitle');
+            const cancelPermBtn = document.getElementById('cancelPermBtn');
+            const savePermissionsBtn = document.getElementById('savePermissionsBtn');
+
+            // Confirm Modal
+            const confirmModalOverlay = document.getElementById('confirmModalOverlay');
+            const confirmModal = document.getElementById('confirmModal');
+            const confirmModalClose = document.getElementById('confirmModalClose');
+            const confirmModalTitle = document.getElementById('confirmModalTitle');
+            const confirmContent = document.getElementById('confirmContent');
+            const confirmCancelBtn = document.getElementById('confirmCancelBtn');
+            const confirmActionBtn = document.getElementById('confirmActionBtn');
+
+            let allEmployees = [];
+            let currentEmployeeId = null;
+            let confirmCallback = null;
+
+            // ─── Initialize ───
+            async function init() {
+                initUserInfo();
+                checkAdminAccess();
+                await loadEmployees();
+                bindEvents();
+                updatePermissionItems();
+            }
+
+            function initUserInfo() {
+                const user = AuthAPI.getCurrentUser();
+                if (user) {
+                    userName.textContent = user.name || user.username;
+                    userAvatar.textContent = (user.name || user.username).charAt(0).toUpperCase();
+                    userRole.textContent = user.role === 'admin' ? 'مدير النظام' : 'موظف';
+
+                    if (user.role !== 'admin' && employeesNav) {
+                        employeesNav.style.display = 'none';
+                    }
+                }
+            }
+
+            function checkAdminAccess() {
+                const user = AuthAPI.getCurrentUser();
+                if (!user || user.role !== 'admin') {
+                    if (adminActions) adminActions.style.display = 'none';
+                }
+            }
+
+            // ─── Load Employees ───
+            async function loadEmployees() {
+                allEmployees = await AuthAPI.getEmployees() || [];
+                renderEmployees(allEmployees);
+                updateStats();
+            }
+
+            // ─── Render Employees ───
+            function renderEmployees(employees) {
+                employeesCount.textContent = `${employees.length} موظف`;
+
+                if (employees.length === 0) {
+                    employeesTableBody.innerHTML = `
+                        <tr>
+                            <td colspan="6">
+                                <div class="empty-state">
+                                    <i class="fas fa-users-slash"></i>
+                                    <h3>لا يوجد موظفين</h3>
+                                    <p>أضف موظفين جدد لإدارة فريق العمل</p>
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+                    return;
+                }
+
+                employeesTableBody.innerHTML = employees.map(emp => {
+                    const statusClass = emp.approved ? (emp.active !== false ? 'status-approved' : 'status-disabled') : 'status-pending';
+                    const statusText = emp.approved ? (emp.active !== false ? 'نشط' : 'معطل') : 'بانتظار الموافقة';
+                    const deviceStatus = emp.device_id ? 'device-bound' : 'device-free';
+                    const deviceText = emp.device_id ? 'مرتبط' : 'حر';
+                    const deviceIcon = emp.device_id ? 'fa-link' : 'fa-unlink';
+                    const lastLogin = emp.last_login ? formatDate(emp.last_login) : 'لم يسبق له';
+                    const lastLoginClass = emp.last_login && isRecent(emp.last_login) ? 'recent' : '';
+                    const isAdmin = emp.role === 'admin';
+
+                    return `
+                        <tr data-employee-id="${emp.id}">
+                            <td>
+                                <div class="employee-info">
+                                    <div class="employee-avatar">${(emp.name || emp.username).charAt(0).toUpperCase()}</div>
+                                    <div class="employee-details">
+                                        <h4>${emp.name || emp.username}</h4>
+                                        <span>${emp.email || ''}</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <code style="background: rgba(123,73,255,0.1); padding: 4px 8px; border-radius: 4px; font-size: 13px; color: var(--color-primary);">${emp.username}</code>
+                            </td>
+                            <td>
+                                <span class="status-badge ${statusClass}">
+                                    <span class="status-dot"></span>
+                                    ${statusText}
+                                </span>
+                            </td>
+                            <td>
+                                <span class="device-status ${deviceStatus}">
+                                    <i class="fas ${deviceIcon}"></i>
+                                    ${deviceText}
+                                </span>
+                            </td>
+                            <td>
+                                <span class="last-login ${lastLoginClass}">${lastLogin}</span>
+                            </td>
+                            <td>
+                                <div class="actions">
+                                    ${!isAdmin ? `
+                                    <button class="btn-action permissions" title="تعديل الصلاحيات" onclick="editPermissions('${emp.id}')">
+                                        <i class="fas fa-key"></i>
+                                    </button>
+                                    <button class="btn-action device" title="إعادة ضبط الجهاز" onclick="resetDevice('${emp.id}')">
+                                        <i class="fas fa-mobile-alt"></i>
+                                    </button>
+                                    <button class="btn-action toggle ${emp.active !== false ? 'disable' : ''}" title="${emp.active !== false ? 'تعطيل' : 'تفعيل'}" onclick="toggleEmployee('${emp.id}')">
+                                        <i class="fas ${emp.active !== false ? 'fa-user-slash' : 'fa-user-check'}"></i>
+                                    </button>
+                                    <button class="btn-action delete" title="حذف" onclick="deleteEmployee('${emp.id}')">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                    ` : '<span style="color: var(--text-muted); font-size: 12px;">مدير النظام</span>'}
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+                }).join('');
+            }
+
+            function formatDate(isoString) {
+                if (!isoString) return '';
+                const date = new Date(isoString);
+                const now = new Date();
+                const diffMs = now - date;
+                const diffMins = Math.floor(diffMs / 60000);
+                const diffHours = Math.floor(diffMs / 3600000);
+                const diffDays = Math.floor(diffMs / 86400000);
+
+                if (diffMins < 1) return 'الآن';
+                if (diffMins < 60) return `منذ ${diffMins} دقيقة`;
+                if (diffHours < 24) return `منذ ${diffHours} ساعة`;
+                if (diffDays < 7) return `منذ ${diffDays} يوم`;
+                return date.toLocaleDateString('ar-SA', { month: 'short', day: 'numeric' });
+            }
+
+            function isRecent(isoString) {
+                if (!isoString) return false;
+                const diff = new Date() - new Date(isoString);
+                return diff < 24 * 60 * 60 * 1000;
+            }
+
+            // ─── Update Stats ───
+            function updateStats() {
+                const total = allEmployees.length;
+                const active = allEmployees.filter(e => e.approved && e.active !== false).length;
+                const pending = allEmployees.filter(e => !e.approved).length;
+                const bound = allEmployees.filter(e => e.device_id).length;
+
+                totalEmployeesEl.textContent = total;
+                activeEmployeesEl.textContent = active;
+                pendingEmployeesEl.textContent = pending;
+                deviceBoundEl.textContent = bound;
+            }
+
+            // ─── Add Employee ───
+            function openAddModal() {
+                addEmployeeForm.reset();
+                addModalOverlay.classList.add('active');
+                addEmployeeModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeAddModal() {
+                addModalOverlay.classList.remove('active');
+                addEmployeeModal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            async function saveEmployee() {
+                const name = document.getElementById('empName').value.trim();
+                const username = document.getElementById('empUsername').value.trim();
+                const password = document.getElementById('empPassword').value;
+                const email = document.getElementById('empEmail').value.trim();
+                const phone = document.getElementById('empPhone').value.trim();
+
+                if (!name || !username || !password) {
+                    showToast('تنبيه', 'يرجى ملء جميع الحقول المطلوبة', 'warning');
+                    return;
+                }
+
+                const permissions = {
+                    dashboard: document.getElementById('permDashboard').checked,
+                    orders: document.getElementById('permOrders').checked,
+                    products: document.getElementById('permProducts').checked,
+                    statistics: document.getElementById('permStatistics').checked
+                };
+
+                const result = await AuthAPI.createEmployee({
+                    name,
+                    username,
+                    password,
+                    email,
+                    phone,
+                    permissions
+                });
+
+                if (result.success) {
+                    showToast('تم', `تم إضافة الموظف ${name} بنجاح`, 'success');
+                    closeAddModal();
+                    await loadEmployees();
+                } else {
+                    showToast('خطأ', result.error || 'حدث خطأ أثناء الإضافة', 'error');
+                }
+            }
+
+            // ─── Edit Permissions ───
+            window.editPermissions = function(employeeId) {
+                const emp = allEmployees.find(e => e.id === employeeId);
+                if (!emp) return;
+
+                currentEmployeeId = employeeId;
+                permModalTitle.textContent = `تعديل صلاحيات: ${emp.name}`;
+
+                const perms = emp.permissions || {};
+                document.getElementById('editPermDashboard').checked = perms.dashboard === true;
+                document.getElementById('editPermOrders').checked = perms.orders === true;
+                document.getElementById('editPermProducts').checked = perms.products === true;
+                document.getElementById('editPermStatistics').checked = perms.statistics === true;
+
+                updateEditPermissionItems();
+
+                permModalOverlay.classList.add('active');
+                permissionsModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            };
+
+            function closePermModal() {
+                permModalOverlay.classList.remove('active');
+                permissionsModal.classList.remove('active');
+                document.body.style.overflow = '';
+                currentEmployeeId = null;
+            }
+
+            async function savePermissions() {
+                if (!currentEmployeeId) return;
+
+                const usersData = AuthAPI.getUsersData();
+                if (!usersData) return;
+
+                const empIndex = usersData.employees.findIndex(e => e.id === currentEmployeeId);
+                if (empIndex === -1) return;
+
+                usersData.employees[empIndex].permissions = {
+                    dashboard: document.getElementById('editPermDashboard').checked,
+                    orders: document.getElementById('editPermOrders').checked,
+                    products: document.getElementById('editPermProducts').checked,
+                    statistics: document.getElementById('editPermStatistics').checked
+                };
+
+                const saved = await AuthAPI.saveUsers();
+                if (saved) {
+                    showToast('تم', 'تم تحديث الصلاحيات بنجاح', 'success');
+                    closePermModal();
+                    await loadEmployees();
+                } else {
+                    showToast('خطأ', 'فشل حفظ الصلاحيات', 'error');
+                }
+            }
+
+            // ─── Reset Device ───
+            window.resetDevice = function(employeeId) {
+                const emp = allEmployees.find(e => e.id === employeeId);
+                if (!emp) return;
+
+                showConfirm(
+                    'إعادة ضبط الجهاز',
+                    `<i class="fas fa-mobile-alt"></i><h4>إعادة ضبط جهاز ${emp.name}</h4><p>سيتم فك ارتباط الجهاز الحالي. سيتمكن الموظف من تسجيل الدخول من جهاز جديد.</p>`,
+                    async () => {
+                        const result = await AuthAPI.resetEmployeeDevice(employeeId);
+                        if (result.success) {
+                            showToast('تم', `تم إعادة ضبط جهاز ${emp.name}`, 'success');
+                            await loadEmployees();
+                        } else {
+                            showToast('خطأ', result.error || 'حدث خطأ', 'error');
+                        }
+                    }
+                );
+            };
+
+            // ─── Toggle Employee ───
+            window.toggleEmployee = function(employeeId) {
+                const emp = allEmployees.find(e => e.id === employeeId);
+                if (!emp) return;
+
+                const isDisabling = emp.active !== false;
+                const actionText = isDisabling ? 'تعطيل' : 'تفعيل';
+                const iconClass = isDisabling ? 'fa-user-slash' : 'fa-user-check';
+                const colorClass = isDisabling ? 'var(--color-error)' : 'var(--color-success)';
+
+                showConfirm(
+                    `${actionText} الموظف`,
+                    `<i class="fas ${iconClass}" style="color: ${colorClass};"></i><h4>${actionText} ${emp.name}</h4><p>${isDisabling ? 'لن يتمكن من تسجيل الدخول حتى يتم إعادة تفعيله.' : 'سيتمكن من تسجيل الدخول والعمل على النظام.'}</p>`,
+                    async () => {
+                        const result = await AuthAPI.toggleEmployee(employeeId);
+                        if (result.success) {
+                            showToast('تم', `تم ${actionText} ${emp.name}`, 'success');
+                            await loadEmployees();
+                        } else {
+                            showToast('خطأ', result.error || 'حدث خطأ', 'error');
+                        }
+                    }
+                );
+            };
+
+            // ─── Delete Employee ───
+            window.deleteEmployee = function(employeeId) {
+                const emp = allEmployees.find(e => e.id === employeeId);
+                if (!emp) return;
+
+                showConfirm(
+                    'حذف الموظف',
+                    `<i class="fas fa-trash" style="color: var(--color-error);"></i><h4>حذف ${emp.name}</h4><p>هذا الإجراء لا يمكن التراجع عنه. سيتم حذف حساب الموظف نهائياً.</p>`,
+                    async () => {
+                        const result = await AuthAPI.deleteEmployee(employeeId);
+                        if (result.success) {
+                            showToast('تم', `تم حذف ${emp.name}`, 'success');
+                            await loadEmployees();
+                        } else {
+                            showToast('خطأ', result.error || 'حدث خطأ', 'error');
+                        }
+                    }
+                );
+            };
+
+            // ─── Confirm Dialog ───
+            function showConfirm(title, content, callback) {
+                confirmModalTitle.textContent = title;
+                confirmContent.innerHTML = content;
+                confirmCallback = callback;
+
+                confirmModalOverlay.classList.add('active');
+                confirmModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeConfirmModal() {
+                confirmModalOverlay.classList.remove('active');
+                confirmModal.classList.remove('active');
+                document.body.style.overflow = '';
+                confirmCallback = null;
+            }
+
+            function executeConfirm() {
+                if (confirmCallback) {
+                    confirmCallback();
+                }
+                closeConfirmModal();
+            }
+
+            // ─── Toast ───
+            function showToast(title, message, type = 'info') {
+                if (!toastContainer) return;
+
+                const icons = {
+                    success: 'fa-check-circle',
+                    error: 'fa-times-circle',
+                    warning: 'fa-exclamation-triangle',
+                    info: 'fa-info-circle'
+                };
+
+                const toast = document.createElement('div');
+                toast.className = `toast toast-${type}`;
+                toast.innerHTML = `
+                    <div class="toast-icon">
+                        <i class="fas ${icons[type]}"></i>
+                    </div>
+                    <div>
+                        <div style="font-weight: 600;">${title}</div>
+                        <div style="font-size: 13px; color: var(--text-secondary);">${message}</div>
+                    </div>
+                `;
+
+                toastContainer.appendChild(toast);
+
+                setTimeout(() => {
+                    toast.classList.add('toast-out');
+                    setTimeout(() => toast.remove(), 300);
+                }, 4000);
+            }
+
+            // ─── Permission Items Visual Update ───
+            function updatePermissionItems() {
+                document.querySelectorAll('.permission-item input[type="checkbox"]').forEach(cb => {
+                    const item = cb.closest('.permission-item');
+                    if (cb.checked) {
+                        item.classList.add('checked');
+                    } else {
+                        item.classList.remove('checked');
+                    }
+                    cb.addEventListener('change', () => {
+                        if (cb.checked) {
+                            item.classList.add('checked');
+                        } else {
+                            item.classList.remove('checked');
+                        }
+                    });
+                });
+            }
+
+            function updateEditPermissionItems() {
+                document.querySelectorAll('#editPermissionsGrid .permission-item input[type="checkbox"]').forEach(cb => {
+                    const item = cb.closest('.permission-item');
+                    if (cb.checked) {
+                        item.classList.add('checked');
+                    } else {
+                        item.classList.remove('checked');
+                    }
+                    cb.addEventListener('change', () => {
+                        if (cb.checked) {
+                            item.classList.add('checked');
+                        } else {
+                            item.classList.remove('checked');
+                        }
+                    });
+                });
+            }
+
+            // ─── Event Binding ───
+            function bindEvents() {
+                // Add modal
+                addEmployeeBtn?.addEventListener('click', openAddModal);
+                addModalClose?.addEventListener('click', closeAddModal);
+                cancelAddBtn?.addEventListener('click', closeAddModal);
+                saveEmployeeBtn?.addEventListener('click', saveEmployee);
+                addModalOverlay?.addEventListener('click', closeAddModal);
+
+                // Permissions modal
+                permModalClose?.addEventListener('click', closePermModal);
+                cancelPermBtn?.addEventListener('click', closePermModal);
+                savePermissionsBtn?.addEventListener('click', savePermissions);
+                permModalOverlay?.addEventListener('click', closePermModal);
+
+                // Confirm modal
+                confirmModalClose?.addEventListener('click', closeConfirmModal);
+                confirmCancelBtn?.addEventListener('click', closeConfirmModal);
+                confirmActionBtn?.addEventListener('click', executeConfirm);
+                confirmModalOverlay?.addEventListener('click', closeConfirmModal);
+
+                // Logout
+                // Mobile
+                }
+
+            // ─── Start ───
+            init();
+
+        })();
+    </script>
+</body>
+</html>

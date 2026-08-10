@@ -1,0 +1,255 @@
+/* ============================================
+   🔄 CSS Reset - إعادة تعيين الأنماط الافتراضية
+   ============================================
+   يضمن التصميم المتسق عبر جميع المتصفحات
+   ============================================ */
+
+/* ─── Box Sizing ─── */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* ─── HTML & Body ─── */
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+}
+
+body {
+    font-family: var(--font-arabic), var(--font-english), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: var(--text-base);
+    line-height: var(--line-height-normal);
+    color: var(--text-primary);
+    background-color: var(--bg-primary);
+    direction: rtl;
+    text-align: right;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── Headings ─── */
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-arabic);
+    font-weight: var(--font-bold);
+    line-height: var(--line-height-tight);
+    color: var(--text-primary);
+    text-wrap: balance;
+}
+
+h1 { font-size: var(--text-5xl); }
+h2 { font-size: var(--text-4xl); }
+h3 { font-size: var(--text-3xl); }
+h4 { font-size: var(--text-2xl); }
+h5 { font-size: var(--text-xl); }
+h6 { font-size: var(--text-lg); }
+
+/* ─── Paragraphs ─── */
+p {
+    margin-bottom: var(--space-md);
+    color: var(--text-secondary);
+}
+
+/* ─── Links ─── */
+a {
+    color: var(--color-accent);
+    text-decoration: none;
+    transition: var(--transition-fast);
+}
+
+a:hover {
+    color: var(--color-accent-light);
+}
+
+a:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+}
+
+/* ─── Lists ─── */
+ul, ol {
+    list-style: none;
+}
+
+/* ─── Images ─── */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
+/* ─── Buttons ─── */
+button {
+    font-family: inherit;
+    font-size: inherit;
+    cursor: pointer;
+    border: none;
+    background: none;
+    color: inherit;
+    transition: var(--transition-fast);
+}
+
+button:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+}
+
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* ─── Inputs & Textareas ─── */
+input,
+textarea,
+select {
+    font-family: inherit;
+    font-size: inherit;
+    color: var(--text-primary);
+    background: var(--bg-surface);
+    border: var(--border-primary);
+    border-radius: var(--radius-md);
+    padding: var(--space-md);
+    width: 100%;
+    transition: var(--transition-fast);
+    outline: none;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: var(--text-muted);
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    border-color: var(--color-primary);
+    box-shadow: var(--glow-purple-sm);
+}
+
+/* ─── Textarea ─── */
+textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+/* ─── Select ─── */
+select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23A0A0C0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: left 12px center;
+    background-size: 20px;
+    padding-left: var(--space-xl);
+}
+
+/* ─── Labels ─── */
+label {
+    display: block;
+    margin-bottom: var(--space-sm);
+    color: var(--text-secondary);
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+}
+
+/* ─── Tables ─── */
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+/* ─── Blockquote ─── */
+blockquote {
+    border-right: 4px solid var(--color-primary);
+    padding-right: var(--space-lg);
+    margin-right: 0;
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+/* ─── Code ─── */
+code {
+    font-family: 'Fira Code', 'Courier New', monospace;
+    background: var(--bg-surface);
+    padding: 2px 6px;
+    border-radius: var(--radius-sm);
+    font-size: 0.9em;
+    color: var(--color-accent);
+}
+
+/* ─── Horizontal Rule ─── */
+hr {
+    border: none;
+    height: 1px;
+    background: var(--border-primary);
+    margin: var(--space-xl) 0;
+}
+
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--color-primary-dark);
+    border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-primary);
+}
+
+/* ─── Selection ─── */
+::selection {
+    background: rgba(123, 73, 255, 0.3);
+    color: var(--text-primary);
+}
+
+/* ─── Focus Visible ─── */
+:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+/* ─── Scroll Margin ─── */
+[id] {
+    scroll-margin-top: 100px;
+}
+
+/* ─── Reduced Motion ─── */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* ─── Print Styles ─── */
+@media print {
+    body {
+        background: white;
+        color: black;
+    }
+
+    .no-print {
+        display: none !important;
+    }
+}

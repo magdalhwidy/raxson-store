@@ -1,0 +1,135 @@
+/* ============================================
+   🎨 CSS Variables - متغيرات التصميم
+   ============================================
+   مستوحى من ألوان Webook.com
+   Primary: #7B49FF (بنفسجي نيون)
+   Secondary: #FF2C79 (وردي نيون)
+   Accent: #00FFD0 (فيروزي نيون)
+   ============================================ */
+
+:root {
+    /* ─── الألوان الرئيسية (Main Colors) ─── */
+    --color-primary: #7B49FF;
+    --color-primary-dark: #5A2DD6;
+    --color-primary-light: #9B7AFF;
+
+    --color-secondary: #FF2C79;
+    --color-secondary-dark: #D61A5E;
+    --color-secondary-light: #FF5C99;
+
+    --color-accent: #00FFD0;
+    --color-accent-dark: #00CCAA;
+    --color-accent-light: #66FFE6;
+
+    /* ─── ألوان الخلفية (Background Colors) ─── */
+    --bg-primary: #0A0A1A;
+    --bg-secondary: #12122B;
+    --bg-surface: #1A1A3E;
+    --bg-surface-hover: #252550;
+    --bg-darker: #080818;
+
+    /* ─── ألوان النصوص (Text Colors) ─── */
+    --text-primary: #FFFFFF;
+    --text-secondary: #A0A0C0;
+    --text-muted: #606080;
+    --text-disabled: #404060;
+
+    /* ─── ألوان الحالة (State Colors) ─── */
+    --color-success: #00FFD0;
+    --color-warning: #FFB800;
+    --color-error: #FF3366;
+    --color-info: #7B49FF;
+
+    /* ─── التدرجات (Gradients) ─── */
+    --gradient-primary: linear-gradient(135deg, #7B49FF 0%, #FF2C79 100%);
+    --gradient-accent: linear-gradient(135deg, #00FFD0 0%, #7B49FF 100%);
+    --gradient-dark: linear-gradient(180deg, #0A0A1A 0%, #12122B 100%);
+    --gradient-card: linear-gradient(145deg, rgba(122,73,255,0.1) 0%, rgba(255,44,121,0.05) 100%);
+    --gradient-hero: linear-gradient(180deg, transparent 0%, #0A0A1A 100%);
+
+    /* ─── الظلال المضيئة (Glow Shadows) ─── */
+    --glow-purple: 0 0 20px rgba(123,73,255,0.5), 0 0 40px rgba(123,73,255,0.3);
+    --glow-pink: 0 0 20px rgba(255,44,121,0.5), 0 0 40px rgba(255,44,121,0.3);
+    --glow-cyan: 0 0 20px rgba(0,255,208,0.5), 0 0 40px rgba(0,255,208,0.3);
+    --glow-purple-sm: 0 0 10px rgba(123,73,255,0.3);
+    --glow-cyan-sm: 0 0 10px rgba(0,255,208,0.3);
+
+    /* ─── الحدود (Borders) ─── */
+    --border-primary: 1px solid rgba(123, 73, 255, 0.2);
+    --border-accent: 1px solid rgba(0, 255, 208, 0.3);
+    --border-subtle: 1px solid rgba(123, 73, 255, 0.1);
+
+    /* ─── الحدود الدائرية (Border Radius) ─── */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
+    --radius-xl: 24px;
+    --radius-full: 50px;
+    --radius-circle: 50%;
+
+    /* ─── المسافات (Spacing) ─── */
+    --space-xs: 4px;
+    --space-sm: 8px;
+    --space-md: 16px;
+    --space-lg: 24px;
+    --space-xl: 32px;
+    --space-2xl: 48px;
+    --space-3xl: 64px;
+
+    /* ─── الخطوط (Typography) ─── */
+    --font-arabic: 'Cairo', sans-serif;
+    --font-english: 'Poppins', sans-serif;
+
+    --text-xs: 12px;
+    --text-sm: 14px;
+    --text-base: 16px;
+    --text-lg: 18px;
+    --text-xl: 20px;
+    --text-2xl: 24px;
+    --text-3xl: 32px;
+    --text-4xl: 42px;
+    --text-5xl: 56px;
+    --text-6xl: 64px;
+
+    --font-normal: 400;
+    --font-medium: 500;
+    --font-semibold: 600;
+    --font-bold: 700;
+
+    --line-height-tight: 1.2;
+    --line-height-normal: 1.6;
+    --line-height-relaxed: 1.8;
+
+    /* ─── الانتقالات (Transitions) ─── */
+    --transition-fast: 0.2s ease;
+    --transition-normal: 0.3s ease;
+    --transition-slow: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    --transition-bounce: 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+    /* ─── الظلال (Shadows) ─── */
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
+    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.4);
+    --shadow-card: 0 10px 30px rgba(0, 0, 0, 0.3);
+    --shadow-card-hover: 0 20px 50px rgba(123, 73, 255, 0.15);
+    --shadow-purple: 0 10px 40px rgba(123, 73, 255, 0.2);
+
+    /* ─── الطبقات (Z-Index) ─── */
+    --z-dropdown: 100;
+    --z-sticky: 200;
+    --z-drawer: 300;
+    --z-modal: 400;
+    --z-toast: 500;
+    --z-loader: 600;
+}
+
+/* ============================================
+   🌙 Dark Mode Variables (Default)
+   ============================================ */
+[data-theme="dark"] {
+    --bg-primary: #0A0A1A;
+    --bg-secondary: #12122B;
+    --bg-surface: #1A1A3E;
+    --text-primary: #FFFFFF;
+    --text-secondary: #A0A0C0;
+}

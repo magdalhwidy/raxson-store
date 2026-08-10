@@ -1,0 +1,277 @@
+/* ============================================
+   📋 Sidebar CSS - مشترك لجميع الصفحات
+   ============================================ */
+
+/* ─── Sidebar Base ─── */
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 280px;
+    height: 100vh;
+    background: var(--bg-secondary, #12122B);
+    border-left: 1px solid rgba(123, 73, 255, 0.2);
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease;
+    overflow: hidden;
+}
+
+/* ─── Header ─── */
+.sidebar-header {
+    padding: 16px 24px;
+    border-bottom: 1px solid rgba(123, 73, 255, 0.1);
+    flex-shrink: 0;
+}
+
+.sidebar-brand {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    text-decoration: none;
+}
+
+.sidebar-brand-icon {
+    width: 45px;
+    height: 45px;
+    background: linear-gradient(135deg, #7B49FF, #FF2C79);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    color: white;
+    box-shadow: 0 0 15px rgba(123, 73, 255, 0.3);
+}
+
+.sidebar-brand-text h2 {
+    font-size: 18px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #7B49FF, #00FFD0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.sidebar-brand-text span {
+    font-size: 12px;
+    color: #606080;
+}
+
+/* ─── User Info ─── */
+.sidebar-user {
+    padding: 12px 24px;
+    border-bottom: 1px solid rgba(123, 73, 255, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+}
+
+.user-avatar {
+    width: 36px;
+    height: 36px;
+    background: linear-gradient(135deg, #7B49FF, #FF2C79);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: white;
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+.user-info h4 {
+    font-size: 14px;
+    font-weight: 600;
+    color: #FFFFFF;
+}
+
+.user-info span {
+    font-size: 12px;
+    color: #00FFD0;
+}
+
+/* ─── Navigation ─── */
+.sidebar-nav {
+    flex: 1;
+    padding: 8px 0;
+    overflow-y: auto;
+    min-height: 0;
+}
+
+.nav-section {
+    margin-bottom: 8px;
+}
+
+.nav-section-title {
+    padding: 8px 24px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #606080;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 24px;
+    color: #A0A0C0;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: 0.2s ease;
+    position: relative;
+    border-right: 3px solid transparent;
+}
+
+.nav-item:hover {
+    background: rgba(123, 73, 255, 0.05);
+    color: #FFFFFF;
+}
+
+.nav-item.active {
+    background: rgba(123, 73, 255, 0.1);
+    color: #7B49FF;
+    border-right-color: #7B49FF;
+}
+
+.nav-item i {
+    width: 24px;
+    text-align: center;
+    font-size: 16px;
+}
+
+.nav-badge {
+    margin-right: auto;
+    padding: 2px 8px;
+    background: #FF2C79;
+    color: white;
+    font-size: 11px;
+    font-weight: 600;
+    border-radius: 20px;
+    min-width: 20px;
+    text-align: center;
+}
+
+/* ─── Footer (Logout) ─── */
+.sidebar-footer {
+    padding: 12px 24px;
+    border-top: 1px solid rgba(123, 73, 255, 0.1);
+    flex-shrink: 0;
+    background: var(--bg-secondary, #12122B);
+}
+
+.btn-logout {
+    width: 100%;
+    padding: 10px 16px;
+    background: rgba(255, 51, 102, 0.1);
+    border: 1px solid rgba(255, 51, 102, 0.2);
+    border-radius: 12px;
+    color: #FF3366;
+    font-family: 'Cairo', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: 0.2s ease;
+    white-space: nowrap;
+}
+
+.btn-logout:hover {
+    background: rgba(255, 51, 102, 0.2);
+}
+
+/* ─── Mobile Toggle ─── */
+.mobile-toggle {
+    display: none;
+    position: fixed;
+    top: 24px;
+    left: 24px;
+    z-index: 200;
+    width: 45px;
+    height: 45px;
+    background: #1A1A3E;
+    border: 1px solid rgba(123, 73, 255, 0.2);
+    border-radius: 12px;
+    color: #FFFFFF;
+    font-size: 18px;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+}
+
+.sidebar-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 99;
+}
+
+/* ─── Main Content Offset ─── */
+.main-content {
+    margin-right: 280px;
+    padding: 32px;
+    min-height: 100vh;
+}
+
+/* ─── Mobile Responsive ─── */
+@media (max-width: 768px) {
+    .sidebar {
+        transform: translateX(100%);
+        width: 280px;
+    }
+
+    .sidebar.open {
+        transform: translateX(0);
+    }
+
+    .main-content {
+        margin-right: 0;
+        padding: 16px;
+        padding-top: 80px;
+    }
+
+    .mobile-toggle {
+        display: flex;
+    }
+
+    .sidebar-overlay.show {
+        display: block;
+    }
+
+    .sidebar-header {
+        padding: 12px 20px;
+    }
+
+    .sidebar-user {
+        padding: 10px 20px;
+    }
+
+    .sidebar-nav {
+        padding: 4px 0;
+    }
+
+    .nav-item {
+        padding: 10px 20px;
+    }
+
+    .sidebar-footer {
+        padding: 10px 20px;
+    }
+
+    .btn-logout {
+        padding: 8px 12px;
+        font-size: 12px;
+    }
+}

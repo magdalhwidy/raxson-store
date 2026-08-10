@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="عالمك المتكامل للمنتجات الرقمية - اشتراكات، ألعاب، وتطبيقات بلس">
+    <meta name="keywords" content="اشتراكات رقمية, ألعاب, تطبيقات بلس, PSN, Xbox, Netflix">
+    <meta name="author" content="Raxson Store">
+    <meta name="theme-color" content="#0A0A1A">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Raxson store | عالمك المتكامل للمنتجات الرقمية">
+    <meta property="og:description" content="اشتراكات رقمية، ألعاب، وتطبيقات بلس بأسعار مميزة">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="assets/images/og-image.jpg">
+
+    <title>Raxson Store | عالمك المتكامل للمنتجات الرقمية</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&family=Exo+2:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome Local -->
+    <link rel="stylesheet" href="css/all.min.css">
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/3d-effects.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/cart.css">
+    <link rel="stylesheet" href="css/chatbot.css">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="images/logo1.png">
+
+    <style>
+        /* ─── Filter Tabs Styles ─── */
+        .filter-tabs {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-xl);
+            flex-wrap: wrap;
+        }
+
+        .filter-tab {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-xs);
+            padding: var(--space-sm) var(--space-lg);
+            background: var(--bg-surface);
+            border: var(--border-subtle);
+            border-radius: var(--radius-md);
+            color: var(--text-secondary);
+            font-family: 'Cairo', sans-serif;
+            font-size: var(--text-sm);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            text-decoration: none;
+            user-select: none;
+        }
+
+        .filter-tab:hover {
+            background: rgba(123, 73, 255, 0.1);
+            border-color: rgba(123, 73, 255, 0.3);
+            color: var(--text-primary);
+            transform: translateY(-2px);
+        }
+
+        .filter-tab.active {
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            border-color: transparent;
+            color: white;
+            box-shadow: 0 4px 15px rgba(123, 73, 255, 0.3);
+        }
+
+        .filter-tab.active:hover {
+            filter: brightness(1.1);
+        }
+
+        .filter-tab i {
+            font-size: var(--text-sm);
+        }
+
+        /* ===== BANNER IMAGE FIX ===== */
+        .slider-slide img.banner-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+        }
+        .slider-slide img.banner-img[src=""] {
+            display: none;
+        }
+        .slider-slide img.banner-img:not([src]), 
+        .slider-slide img.banner-img[src=""] {
+            background: linear-gradient(135deg, #e91e63, #7b49ff);
+        }
+        /* Fallback gradient when image fails */
+        .slider-slide {
+            background: linear-gradient(135deg, #e91e63, #7b49ff);
+        }
+        .slider-slide:nth-child(2) {
+            background: linear-gradient(135deg, #00ffd0, #7b49ff);
+        }
+        .slider-slide:nth-child(3) {
+            background: linear-gradient(135deg, #ff2c79, #e91e63);
+        }
+
+        @media (max-width: 768px) {
+            .filter-tabs {
+                gap: var(--space-xs);
+            }
+            .filter-tab {
+                padding: var(--space-xs) var(--space-md);
+                font-size: var(--text-xs);
+            }
+        }
+    
+
+        /* ===== MOBILE HEADER FIX - INLINE ===== */
+        @media (max-width: 768px) {
+            .header-container {
+                position: relative !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                padding: 8px 16px !important;
+                min-height: 56px !important;
+            }
+            .header-actions-left {
+                position: absolute !important;
+                left: 16px !important;
+                top: 50% !important;
+                transform: translateY(-50%) !important;
+                display: flex !important;
+                align-items: center !important;
+                gap: 6px !important;
+                z-index: 10 !important;
+                flex-direction: row-reverse !important;
+            }
+            .header-actions-right {
+                position: absolute !important;
+                right: 16px !important;
+                top: 50% !important;
+                transform: translateY(-50%) !important;
+                display: flex !important;
+                align-items: center !important;
+                gap: 6px !important;
+                z-index: 10 !important;
+                flex-direction: row-reverse !important;
+            }
+            .header-actions-left .menu-toggle,
+            .header-actions-left .login-btn,
+            .header-actions-right .search-icon-btn,
+            .header-actions-right .lang-btn {
+                width: 34px !important;
+                height: 34px !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                border-radius: 10px !important;
+                background: rgba(26, 26, 62, 0.6) !important;
+                border: 1px solid rgba(255,255,255,0.08) !important;
+                color: #a0a0c0 !important;
+                font-size: 13px !important;
+                flex-shrink: 0 !important;
+            }
+            .header-actions-left .login-btn,
+            .header-actions-right .lang-btn {
+                cursor: default !important;
+            }
+            .logo {
+                position: static !important;
+                transform: none !important;
+                z-index: 5 !important;
+            }
+            .logo-img {
+                width: 58px !important;
+                height: 58px !important;
+                margin-bottom: 0 !important;
+                display: block !important;
+            }
+            .search-bar { display: none !important; }
+            .header-actions { display: none !important; }
+            .search-bottom-btn, #searchBottomBtn { display: none !important; }
+            /* Toast centering on mobile */
+            .toast-container {
+                left: 50% !important;
+                right: auto !important;
+                transform: translateX(-50%) !important;
+                width: 90% !important;
+                max-width: 360px !important;
+                align-items: center !important;
+            }
+            .toast {
+                width: 100% !important;
+                justify-content: center !important;
+            }
+        }
+        @media (min-width: 769px) {
+            .header-actions-left, .header-actions-right { display: none !important; }
+        }
+    
+        /* ============================================
+           🎬 SPLASH SCREEN - Cinematic Loading
+           ============================================ */
+        .splash-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 99999;
+            background: linear-gradient(135deg, #0a0a1a 0%, #1a1a3e 50%, #0a0a1a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+                        transform 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+                        visibility 0.8s;
+        }
+
+        .splash-screen.hidden {
+            opacity: 0;
+            transform: scale(1.05);
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .splash-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 32px;
+            animation: splashFadeIn 0.6s ease-out;
+        }
+
+        @keyframes splashFadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .splash-logo-wrapper {
+            position: relative;
+            width: 140px;
+            height: 140px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .splash-logo {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+            position: relative;
+            z-index: 3;
+            animation: splashLogoReveal 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+            filter: drop-shadow(0 0 30px rgba(233, 30, 99, 0.4));
+        }
+
+        @keyframes splashLogoReveal {
+            0% { opacity: 0; transform: scale(0.3) rotate(-10deg); }
+            60% { transform: scale(1.1) rotate(2deg); }
+            100% { opacity: 1; transform: scale(1) rotate(0deg); }
+        }
+
+        .splash-glow {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(233, 30, 99, 0.3) 0%, transparent 70%);
+            z-index: 2;
+            animation: splashPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes splashPulse {
+            0%, 100% { transform: scale(1); opacity: 0.6; }
+            50% { transform: scale(1.3); opacity: 0.3; }
+        }
+
+        .splash-ring {
+            position: absolute;
+            width: 160px;
+            height: 160px;
+            border: 2px solid transparent;
+            border-top-color: rgba(233, 30, 99, 0.6);
+            border-right-color: rgba(123, 73, 255, 0.3);
+            border-radius: 50%;
+            z-index: 1;
+            animation: splashSpin 3s linear infinite;
+        }
+
+        .splash-ring-2 {
+            width: 190px;
+            height: 190px;
+            border-top-color: rgba(0, 255, 208, 0.4);
+            border-right-color: rgba(233, 30, 99, 0.2);
+            animation: splashSpin 4s linear infinite reverse;
+        }
+
+        @keyframes splashSpin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .splash-progress-container {
+            width: 240px;
+            max-width: 80vw;
+        }
+
+        .splash-progress-track {
+            position: relative;
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .splash-progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #e91e63, #ff2c79, #e91e63);
+            background-size: 200% 100%;
+            border-radius: 2px;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: splashShimmer 1.5s linear infinite;
+        }
+
+        @keyframes splashShimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        .splash-text {
+            color: rgba(255, 255, 255, 0.5);
+            font-family: 'Cairo', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            animation: splashTextPulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes splashTextPulse {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 1; }
+        }
+
+        .splash-screen::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(233, 30, 99, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(123, 73, 255, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(0, 255, 208, 0.03) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        @media (max-width: 768px) {
+            .splash-logo-wrapper { width: 110px; height: 110px; }
+            .splash-logo { width: 75px; height: 75px; }
+            .splash-ring { width: 130px; height: 130px; }
+            .splash-ring-2 { width: 155px; height: 155px; }
+            .splash-glow { width: 100px; height: 100px; }
+            .splash-progress-container { width: 200px; }
+        }
+
+    </style>
+<base target="_blank">
+<base target="_blank">
+</head>
+<body>
+    <!-- ==================== SPLASH SCREEN ==================== -->
+    <div class="splash-screen" id="splashScreen">
+        <div class="splash-content">
+            <div class="splash-logo-wrapper">
+                <img src="images/logo1.png" alt="Raxson Store" class="splash-logo" onerror="this.style.display='none'">
+                <div class="splash-glow"></div>
+                <div class="splash-ring"></div>
+                <div class="splash-ring splash-ring-2"></div>
+            </div>
+            <div class="splash-progress-container">
+                <div class="splash-progress-track">
+                    <div class="splash-progress-bar" id="splashProgressBar"></div>
+                </div>
+            </div>
+            <p class="splash-text" id="splashText">جاري التحميل</p>
+        </div>
+    </div>
+
+
+    <!-- ==================== PARTICLES BACKGROUND ==================== -->
+    
+
+    <!-- ==================== HEADER ==================== -->
+    <header class="header" id="header">
+        <div class="header-container">
+            <!-- LEFT: Menu + Account (Mobile) -->
+            <div class="header-actions-left">
+                <button class="menu-toggle" id="menuToggle" aria-label="القائمة">
+                    <span></span><span></span><span></span>
+                </button>
+                <button class="login-btn login-trigger" id="loginTrigger" aria-label="حسابي">
+                    <i class="fas fa-user"></i>
+                </button>
+            </div>
+
+            <!-- CENTER: Logo -->
+            <a href="/" class="logo">
+                <img src="images/logo1.png" onerror="this.style.display='none'" alt="Raxson Logo" class="logo-img">
+                <span class="logo-text"></span>
+            </a>
+
+            <!-- Search Bar (Desktop only) -->
+            <div class="search-bar">
+                <input type="text" placeholder="ابحث عن منتج..." class="search-input" id="searchInput">
+                <button class="search-btn" aria-label="بحث"><i class="fas fa-search"></i></button>
+            </div>
+
+            <!-- RIGHT: Search + Language (Mobile) -->
+            <div class="header-actions-right">
+                <button class="search-icon-btn" id="searchIconBtn" aria-label="بحث">
+                    <i class="fas fa-search"></i>
+                </button>
+                <button class="lang-btn" id="langBtn" aria-label="تغيير اللغة">
+                    <i class="fas fa-globe"></i>
+                </button>
+            </div>
+
+            <!-- Desktop Header Actions -->
+            <div class="header-actions">
+                <button class="cart-btn" id="cartBtn" aria-label="السلة">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-badge" id="cartBadge">0</span>
+                </button>
+                <button class="login-btn login-trigger" id="loginTriggerDesktop" aria-label="حسابي">
+                    <i class="fas fa-user"></i>
+                </button>
+                <button class="logout-btn" id="logoutBtn" style="display:none;" aria-label="تسجيل الخروج">
+                    <i class="fas fa-sign-out-alt"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="main-nav" id="mainNav">
+            <ul class="nav-list">
+                <li><a href="#home" class="nav-link active">الرئيسية</a></li>
+                <li><a href="#categories" class="nav-link">التصنيفات</a></li>
+                <li><a href="#products" class="nav-link">المنتجات</a></li>
+                <li><a href="#why-us" class="nav-link">لماذا نحن</a></li>
+                <li><a href="#contact" class="nav-link">تواصل معنا</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- ==================== MOBILE BOTTOM NAV ==================== -->
+    <nav class="bottom-nav" id="bottomNav">
+        <a href="#home" class="bottom-nav-item active">
+            <i class="fas fa-home"></i>
+            <span>الرئيسية</span>
+        </a>
+        <a href="#categories" class="bottom-nav-item">
+            <i class="fas fa-th-large"></i>
+            <span>التصنيفات</span>
+        </a>
+        <button class="bottom-nav-item search-bottom-btn" id="searchBottomBtn" style="display:none !important;">
+            <i class="fas fa-search"></i>
+            <span>بحث</span>
+        </button>
+        <button class="bottom-nav-item cart-bottom-btn" id="cartBottomBtn">
+            <i class="fas fa-shopping-cart"></i>
+            <span>السلة</span>
+            <span class="cart-badge" id="cartBadgeBottom">0</span>
+        </button>
+        <a href="#" class="bottom-nav-item login-trigger">
+            <i class="fas fa-user"></i>
+            <span>حسابي</span>
+        </a>
+    </nav>
+
+    <!-- ==================== MAIN CONTENT ==================== -->
+    <main>
+        <!-- ==================== HERO SECTION ==================== -->
+        <section class="hero" id="home">
+            <div class="hero-content">
+                            <!-- Image Slider - FIXED -->
+            <div class="hero-slider" id="heroSlider">
+                <div class="slider-container">
+                    <div class="slider-track" id="sliderTrack">
+                        <!-- Slides loaded dynamically from banners.json -->
+                    </div>
+                    <div class="slider-dots" id="sliderDots">
+                        <!-- Dots generated dynamically -->
+                    </div>
+                </div>
+            </div>
+<h1 class="hero-title">
+                    <span class="hero-title-word">عالمك</span>
+                    <span class="hero-title-word">الرقمي</span>
+                    <span class="hero-title-word highlight">يبدأ هنا</span>
+                </h1>
+                <p class="hero-subtitle">
+                    اشتراكات رقمية، ألعاب، وتطبيقات بلس بأسعار مميزة وضمان كامل
+                </p>
+                <div class="hero-buttons">
+                    <a href="#products" class="btn btn-primary btn-glow">
+                        <span>تسوق الآن</span>
+                        <i class="fas fa-arrow-left"></i>
+                    </a>
+                    <a href="#why-us" class="btn btn-outline">
+                        <span>اعرف أكثر</span>
+                        <i class="fas fa-info-circle"></i>
+                    </a>
+                </div>
+            </div>
+            
+        </section>
+
+        <!-- ==================== CATEGORIES SECTION ==================== -->
+        <section class="categories" id="categories">
+            <div class="section-header">
+                <h2 class="section-title">اكتشف أقسامنا</h2>
+                <p class="section-subtitle">تصفح مجموعتنا المتنوعة من المنتجات الرقمية</p>
+            </div>
+            <div class="categories-grid">
+                <a href="#products" class="category-card" data-category="games">
+                    <div class="category-icon">
+                        <i class="fas fa-gamepad"></i>
+                    </div>
+                    <h3 class="category-name">ألعاب الفيديو</h3>
+                    <span class="category-count">+150 منتج</span>
+                </a>
+                <a href="#products" class="category-card" data-category="subscriptions">
+                    <div class="category-icon">
+                        <i class="fas fa-ticket-alt"></i>
+                    </div>
+                    <h3 class="category-name">اشتراكات رقمية</h3>
+                    <span class="category-count">+80 منتج</span>
+                </a>
+                <a href="#products" class="category-card" data-category="plus-apps">
+                    <div class="category-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3 class="category-name">تطبيقات البلس</h3>
+                    <span class="category-count">+50 منتج</span>
+                </a>
+                <a href="#products" class="category-card" data-category="gift-cards">
+                    <div class="category-icon">
+                        <i class="fas fa-gift"></i>
+                    </div>
+                    <h3 class="category-name">بطاقات الهدايا</h3>
+                    <span class="category-count">+100 منتج</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- ==================== FEATURED PRODUCTS ==================== -->
+        <section class="products" id="products">
+            <div class="section-header">
+                <div class="section-badge">
+                    <i class="fas fa-fire"></i>
+                    <span>الأكثر مبيعاً</span>
+                </div>
+                <h2 class="section-title">منتجات مميزة</h2>
+            </div>
+
+            <!-- ─── Filter Tabs ─── -->
+            <div class="filter-tabs">
+                <button class="filter-tab active" data-filter="all" data-category="all">
+                    <i class="fas fa-th-large"></i>
+                    <span>الكل</span>
+                </button>
+                <button class="filter-tab" data-filter="bestseller">
+                    <i class="fas fa-fire"></i>
+                    <span>الأكثر مبيعاً</span>
+                </button>
+                <button class="filter-tab" data-category="games">
+                    <i class="fas fa-gamepad"></i>
+                    <span>ألعاب الفيديو</span>
+                </button>
+                <button class="filter-tab" data-category="subscriptions">
+                    <i class="fas fa-ticket-alt"></i>
+                    <span>اشتراكات رقمية</span>
+                </button>
+                <button class="filter-tab" data-category="plus-apps">
+                    <i class="fas fa-mobile-alt"></i>
+                    <span>تطبيقات البلس</span>
+                </button>
+                <button class="filter-tab" data-category="gift-cards">
+                    <i class="fas fa-gift"></i>
+                    <span>بطاقات الهدايا</span>
+                </button>
+            </div>
+
+            <div class="products-grid" id="productsGrid">
+                <!-- Products will be loaded by JS -->
+            </div>
+            <div class="products-actions">
+                <button class="btn btn-secondary" id="loadMoreBtn">
+                    <span>عرض المزيد</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- ==================== WHY US SECTION ==================== -->
+        <section class="why-us" id="why-us">
+            <div class="section-header">
+                <h2 class="section-title">لماذا تختارنا؟</h2>
+                <p class="section-subtitle">نقدم لك تجربة تسوق رقمية مميزة</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3 class="feature-title">تسليم فوري</h3>
+                    <p class="feature-desc">استلم طلبك خلال دقائق من إتمام الدفع</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="feature-title">ضمان كامل</h3>
+                    <p class="feature-desc">ضمان على جميع المنتجات مع استبدال فوري</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3 class="feature-title">دعم 24/7</h3>
+                    <p class="feature-desc">فريق دعم متاح على مدار الساعة</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-tag"></i>
+                    </div>
+                    <h3 class="feature-title">أسعار مميزة</h3>
+                    <p class="feature-desc">أفضل الأسعار مع عروض وخصومات مستمرة</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== PAYMENT METHODS ==================== -->
+        <section class="payment-methods">
+            <div class="section-header">
+                <h2 class="section-title">طرق الدفع المتاحة</h2>
+                <p class="section-subtitle">أكثر من طريقة دفع حول العالم</p>
+            </div>
+            <div class="payment-icons">
+                <div class="payment-icon">
+                    <i class="fab fa-apple-pay"></i>
+                </div>
+                <div class="payment-icon">
+                    <span class="payment-text">Mada</span>
+                </div>
+                <div class="payment-icon">
+                    <i class="fab fa-paypal"></i>
+                </div>
+                <div class="payment-icon">
+                    <i class="fab fa-cc-visa"></i>
+                </div>
+                <div class="payment-icon">
+                    <i class="fab fa-cc-mastercard"></i>
+                </div>
+                <div class="payment-icon">
+                    <span class="payment-text">STC Pay</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="footer" id="contact">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <!-- Brand Column -->
+                <div class="footer-col footer-brand">
+                    <a href="/" class="footer-logo">
+                        <span class="logo-shop">Store</span>
+                        <span class="logo-store">Raxson</span>
+                    </a>
+                    <p class="footer-desc">
+                        عالمك المتكامل للمنتجات الرقمية. نقدم اشتراكات رقمية، ألعاب، وتطبيقات بلس بأسعار مميزة.
+                    </p>
+                    <div class="footer-social">
+                        <a href="#" class="social-link" aria-label="Twitter">
+                            <i class="fab fa-x-twitter"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="YouTube">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Telegram">
+                            <i class="fab fa-telegram"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="footer-col">
+                    <h4 class="footer-title">روابط سريعة</h4>
+                    <ul class="footer-links">
+                        <li><a href="#home">الرئيسية</a></li>
+                        <li><a href="#categories">التصنيفات</a></li>
+                        <li><a href="#products">المنتجات</a></li>
+                        <li><a href="#">التسويق بالعمولة</a></li>
+                    </ul>
+                </div>
+
+                <!-- Support -->
+                <div class="footer-col">
+                    <h4 class="footer-title">الدعم</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">تواصل معنا</a></li>
+                        <li><a href="#">الأسئلة الشائعة</a></li>
+                        <li><a href="#">طريقة التفعيل</a></li>
+                        <li><a href="#">تحديثات المتجر</a></li>
+                    </ul>
+                </div>
+
+                <!-- Policies -->
+                <div class="footer-col">
+                    <h4 class="footer-title">السياسات</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">سياسة الخصوصية</a></li>
+                        <li><a href="#">سياسة الاسترجاع</a></li>
+                        <li><a href="#">سياسة الاستخدام</a></li>
+                        <li><a href="#">شروط الخدمة</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Footer Bottom -->
+            <div class="footer-bottom">
+                <p class="copyright">
+
+جميع الحقوق محفوظة  © 2026 Raxson store
+  
+  
+                </p>
+                <div class="footer-badge">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>موثق في منصة الأعمال</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==================== CART DRAWER ==================== -->
+    <div class="cart-overlay" id="cartOverlay"></div>
+    <aside class="cart-drawer" id="cartDrawer">
+        <div class="cart-header">
+            <h3 class="cart-title">
+                <i class="fas fa-shopping-cart"></i>
+                <span>سلة المشتريات</span>
+            </h3>
+            <button class="cart-close" id="cartClose" aria-label="إغلاق">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="cart-body" id="cartBody">
+            <div class="cart-empty" id="cartEmpty">
+                <i class="fas fa-shopping-basket"></i>
+                <p>السلة فارغة</p>
+                <span>أضف بعض المنتجات للبدء</span>
+            </div>
+            <div class="cart-items" id="cartItems"></div>
+        </div>
+        <div class="cart-footer" id="cartFooter">
+            <div class="cart-total">
+                <span>الإجمالي:</span>
+                <span class="total-price" id="totalPrice">0 ر.س</span>
+            </div>
+            <button class="btn btn-primary btn-full" id="checkoutBtn">
+                <span>إتمام الطلب</span>
+                <i class="fas fa-arrow-left"></i>
+            </button>
+        </div>
+    </aside>
+
+    <!-- ==================== ORDER MODAL ==================== -->
+    <div class="modal-overlay" id="modalOverlay"></div>
+    <div class="modal" id="orderModal">
+        <div class="modal-header">
+            <h3 class="modal-title">إتمام الطلب</h3>
+            <button class="modal-close" id="modalClose" aria-label="إغلاق">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form class="order-form" id="orderForm">
+                <div class="form-group">
+                    <label for="customerPhone">رقم الهاتف *</label>
+                    <input type="tel" id="customerPhone" name="phone" required placeholder="05xxxxxxxx">
+                </div>
+                <div class="form-group">
+                    <label for="customerTelegram">
+                        <i class="fab fa-telegram"></i>
+                        حساب التلجرام * (لإرسال الطلب)
+                    </label>
+                    <input type="text" id="customerTelegram" name="telegram" required placeholder="@username">
+                </div>
+                <div class="order-summary">
+                    <h4>ملخص الطلب</h4>
+                    <div class="summary-items" id="summaryItems"></div>
+                    <div class="summary-total">
+                        <span>الإجمالي:</span>
+                        <span id="summaryTotal">0 ر.س</span>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full btn-glow">
+                    <span>تأكيد الطلب</span>
+                    <i class="fas fa-check"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ==================== AUTH MODAL ==================== -->
+    <div class="modal-overlay auth-overlay" id="authOverlay"></div>
+    <div class="modal auth-modal" id="authModal">
+        <div class="modal-header">
+            <h3 class="modal-title">حسابي</h3>
+            <button class="modal-close" id="authClose" aria-label="إغلاق">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="auth-tabs">
+                <button class="auth-tab active" data-tab="login">تسجيل الدخول</button>
+                <button class="auth-tab" data-tab="register">إنشاء حساب</button>
+            </div>
+
+            <!-- Login Form (MODIFIED - Added remember me + forgot password) -->
+            <form class="auth-form active" id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">البريد الإلكتروني</label>
+                    <input type="email" id="loginEmail" required placeholder="your@email.com">
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">كلمة المرور</label>
+                    <input type="password" id="loginPassword" required placeholder="••••••">
+                </div>
+                <div class="form-group remember-me">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="rememberMe">
+                        <span class="checkmark"></span>
+                      تذكرني
+                    </label>
+                </div>
+                <div class="form-group forgot-password">
+                    <a href="#" class="forgot-password-link" id="forgotPasswordLink">نسيت كلمة المرور؟</a>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">
+                    <span>تسجيل الدخول</span>
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+            </form>
+
+            <!-- Register Form -->
+            <form class="auth-form" id="registerForm">
+                <div class="form-group">
+                    <label for="registerName">الاسم الكامل</label>
+                    <input type="text" id="registerName" required placeholder="إسمك هنا">
+                </div>
+                <div class="form-group">
+                    <label for="registerEmail">البريد الإلكتروني</label>
+                    <input type="email" id="registerEmail" required placeholder="your@email.com">
+                </div>
+                <div class="form-group">
+                    <label for="registerPassword">كلمة المرور</label>
+                    <input type="password" id="registerPassword" required placeholder="6 أحرف على الأقل" minlength="6">
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">
+                    <span>إنشاء حساب</span>
+                    <i class="fas fa-user-plus"></i>
+                </button>
+            </form>
+
+            <!-- Forgot Password Form (NEW) -->
+            <form class="auth-form" id="forgotPasswordForm">
+                <h4 class="auth-form-title">استعادة كلمة المرور</h4>
+                <p class="auth-form-desc">أدخل بريدك الإلكتروني وسنرسل لك رابط الاستعادة</p>
+                <div class="form-group">
+                    <label for="forgotEmail">البريد الإلكتروني</label>
+                    <input type="email" id="forgotEmail" required placeholder="your@email.com">
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">
+                    <span>إرسال رابط الاستعادة</span>
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+                <button type="button" class="btn btn-text back-to-login" onclick="document.querySelector('[data-tab=\'login\']').click()">
+                    <i class="fas fa-arrow-right"></i>
+                    العودة لتسجيل الدخول
+                </button>
+            </form>
+
+            <!-- Reset Password Form (NEW) -->
+            <form class="auth-form" id="resetPasswordForm">
+                <h4 class="auth-form-title">تعيين كلمة مرور جديدة</h4>
+                <input type="hidden" id="resetToken">
+                <div class="form-group">
+                    <label for="newPassword">كلمة المرور الجديدة</label>
+                    <input type="password" id="newPassword" required placeholder="6 أحرف على الأقل" minlength="6">
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">تأكيد كلمة المرور</label>
+                    <input type="password" id="confirmPassword" required placeholder="أعد كتابة كلمة المرور">
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">
+                    <span>تغيير كلمة المرور</span>
+                    <i class="fas fa-check"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ==================== TOAST NOTIFICATIONS ==================== -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- ==================== SCRIPTS ==================== -->
+    
+    <script src="js/animations.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/products.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/order.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/chatbot.js"></script>
+
+    <!-- Hero Slider Script - LOADS FROM banners.json -->
+    <script>
+    (function() {
+        const track = document.getElementById('sliderTrack');
+        const dotsContainer = document.getElementById('sliderDots');
+        let slides = [];
+        let dots = [];
+        let currentSlide = 0;
+        let autoPlayInterval;
+
+        // Fallback gradients for each slide
+        const fallbackGradients = [
+            'linear-gradient(135deg, #e91e63, #7b49ff)',
+            'linear-gradient(135deg, #00ffd0, #7b49ff)',
+            'linear-gradient(135deg, #ff2c79, #e91e63)'
+        ];
+
+        // Load banners from banners.json
+        async function loadBanners() {
+            try {
+                // Try multiple paths for banners.json (based on project structure)
+                let response = null;
+                const paths = ['banners.json', 'data/banners.json', '../data/banners.json'];
+                for (const path of paths) {
+                    try {
+                        const r = await fetch(path);
+                        if (r.ok) { response = r; break; }
+                    } catch(e) {}
+                }
+                if (!response) throw new Error('banners.json not found in any path');
+                if (!response.ok) throw new Error('Failed to load banners.json');
+                const data = await response.json();
+                const banners = data.banners || [];
+
+                // Filter only active banners
+                const activeBanners = banners.filter(b => b.active !== false);
+
+                if (activeBanners.length === 0) {
+                    // No banners found, use default fallback
+                    createDefaultSlides();
+                    return;
+                }
+
+                renderSlides(activeBanners);
+            } catch (error) {
+                console.warn('Could not load banners.json:', error);
+                // Fallback: create default slides
+                createDefaultSlides();
+            }
+        }
+
+        function renderSlides(banners) {
+            track.innerHTML = '';
+            dotsContainer.innerHTML = '';
+
+            banners.forEach((banner, index) => {
+                // Create slide
+                const slide = document.createElement('div');
+                slide.className = 'slider-slide' + (index === 0 ? ' active' : '');
+
+                const gradient = fallbackGradients[index % fallbackGradients.length];
+
+                // Image path - relative to Front/index.html
+                let imgPath = banner.image || '';
+
+                slide.innerHTML = `
+                    <img src="${imgPath}" alt="${banner.title}" class="banner-img" 
+                         onerror="this.style.display='none'; this.parentElement.style.background='${gradient}'">
+                    <div class="slide-overlay">
+                        <span class="slide-badge">${banner.badge || ''}</span>
+                        <h3 class="slide-title">${banner.title}</h3>
+                    </div>
+                `;
+                track.appendChild(slide);
+
+                // Create dot
+                const dot = document.createElement('button');
+                dot.className = 'slider-dot' + (index === 0 ? ' active' : '');
+                dot.setAttribute('data-slide', index);
+                dot.setAttribute('aria-label', 'الشريحة ' + (index + 1));
+                dotsContainer.appendChild(dot);
+            });
+
+            // Re-query slides and dots after rendering
+            slides = document.querySelectorAll('.slider-slide');
+            dots = document.querySelectorAll('.slider-dot');
+
+            // Add click events to dots
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    goToSlide(index);
+                    resetAutoPlay();
+                });
+            });
+
+            // Start autoplay
+            resetAutoPlay();
+        }
+
+        function createDefaultSlides() {
+            // Try to read from data/banners.json as fallback
+            fetch('banners.json')
+                .then(r => r.json())
+                .then(data => {
+                    const banners = (data.banners || []).filter(b => b.active !== false);
+                    if (banners.length > 0) {
+                        renderSlides(banners);
+                    } else {
+                        showGradientFallback();
+                    }
+                })
+                .catch(() => showGradientFallback());
+        }
+
+        function showGradientFallback() {
+            // Ultimate fallback: gradient-only slides (no images needed)
+            const fallbackBanners = [
+                { image: '', title: 'بطاقات PSN', badge: 'اشتراكات' },
+                { image: '', title: 'ألعاب الفيديو', badge: 'ألعاب' },
+                { image: '', title: 'تطبيقات البلس', badge: 'تطبيقات' }
+            ];
+            renderSlides(fallbackBanners);
+        }
+
+        // Debug function to check image loading
+        function debugImage(src) {
+            const img = new Image();
+            img.onload = () => console.log('✅ Image loaded:', src);
+            img.onerror = () => console.log('❌ Image failed:', src);
+            img.src = src;
+        }
+
+        function goToSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.classList.toggle('active', i === index);
+            });
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
+            });
+            currentSlide = index;
+        }
+
+        function nextSlide() {
+            if (slides.length === 0) return;
+            goToSlide((currentSlide + 1) % slides.length);
+        }
+
+        function resetAutoPlay() {
+            clearInterval(autoPlayInterval);
+            autoPlayInterval = setInterval(nextSlide, 4000);
+        }
+
+        // Initialize
+        loadBanners();
+    })();
+    </script>
+
+    <!-- ==================== SPLASH SCREEN SCRIPT ==================== -->
+    <script>
+    (function() {
+        const splash = document.getElementById('splashScreen');
+        const progressBar = document.getElementById('splashProgressBar');
+        const splashText = document.getElementById('splashText');
+        let progress = 0;
+        const texts = ['جاري التحميل', 'جاري التحميل.', 'جاري التحميل..', 'جاري التحميل...'];
+        let textIndex = 0;
+
+        const textInterval = setInterval(() => {
+            textIndex = (textIndex + 1) % texts.length;
+            if (splashText) splashText.textContent = texts[textIndex];
+        }, 400);
+
+        const progressInterval = setInterval(() => {
+            const increment = Math.random() * 12 + 3;
+            progress += increment;
+
+            if (progress >= 100) {
+                progress = 100;
+                clearInterval(progressInterval);
+                clearInterval(textInterval);
+
+                setTimeout(() => {
+                    splash.classList.add('hidden');
+                    setTimeout(() => {
+                        splash.style.display = 'none';
+                    }, 800);
+                }, 300);
+            }
+
+            if (progressBar) progressBar.style.width = progress + '%';
+        }, 120);
+
+        setTimeout(() => {
+            if (splash && splash.style.display !== 'none') {
+                clearInterval(progressInterval);
+                clearInterval(textInterval);
+                splash.classList.add('hidden');
+                setTimeout(() => {
+                    splash.style.display = 'none';
+                }, 800);
+            }
+        }, 5000);
+    })();
+    </script>
+
+</body>
+</html>

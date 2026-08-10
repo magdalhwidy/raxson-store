@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الإعدادات | لوحة التحكم</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/admin/sidebar.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --color-primary: #7B49FF; --color-primary-dark: #5A2DD6; --color-primary-light: #9B7AFF;
+            --color-secondary: #FF2C79; --color-accent: #00FFD0; --color-success: #00FFD0;
+            --color-warning: #FFB800; --color-error: #FF3366; --bg-primary: #0A0A1A;
+            --bg-secondary: #12122B; --bg-surface: #1A1A3E; --bg-surface-hover: #252550;
+            --text-primary: #FFFFFF; --text-secondary: #A0A0C0; --text-muted: #606080;
+            --border-subtle: 1px solid rgba(123, 73, 255, 0.1); --border-primary: 1px solid rgba(123, 73, 255, 0.2);
+            --radius-sm: 8px; --radius-md: 12px; --radius-lg: 16px;
+            --space-xs: 4px; --space-sm: 8px; --space-md: 16px; --space-lg: 24px; --space-xl: 32px; --space-2xl: 48px;
+            --transition-fast: 0.2s ease; --transition-normal: 0.3s ease;
+            --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.3); --shadow-glow: 0 0 20px rgba(123, 73, 255, 0.15);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Cairo', sans-serif; background: var(--bg-primary); color: var(--text-primary); min-height: 100vh; }
+
+        .sidebar { position: fixed; top: 0; right: 0; width: 280px; height: 100vh; background: var(--bg-secondary); border-left: var(--border-primary); z-index: 100; display: flex; flex-direction: column; transition: transform 0.3s ease; }
+        .sidebar-header { padding: var(--space-lg); border-bottom: var(--border-subtle); }
+        .sidebar-brand { display: flex; align-items: center; gap: var(--space-md); text-decoration: none; }
+        .sidebar-brand-icon { width: 45px; height: 45px; background: linear-gradient(135deg, var(--color-primary), var(--color-secondary)); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; font-size: 20px; color: white; box-shadow: 0 0 15px rgba(123, 73, 255, 0.3); }
+        .sidebar-brand-text h2 { font-size: 18px; font-weight: 700; background: linear-gradient(135deg, var(--color-primary), var(--color-accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .sidebar-brand-text span { font-size: 12px; color: var(--text-muted); }
+        .sidebar-user { padding: var(--space-lg); border-bottom: var(--border-subtle); display: flex; align-items: center; gap: var(--space-md); }
+        .user-avatar { width: 45px; height: 45px; background: linear-gradient(135deg, var(--color-primary), var(--color-secondary)); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; color: white; font-weight: 600; }
+        .user-info h4 { font-size: 14px; font-weight: 600; color: var(--text-primary); }
+        .user-info span { font-size: 12px; color: var(--color-accent); }
+        .sidebar-nav { flex: 1; padding: var(--space-md) 0; overflow-y: auto; }
+        .nav-section { margin-bottom: var(--space-md); }
+        .nav-section-title { padding: var(--space-sm) var(--space-lg); font-size: 11px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+        .nav-item { display: flex; align-items: center; gap: var(--space-md); padding: var(--space-md) var(--space-lg); color: var(--text-secondary); text-decoration: none; font-size: 14px; font-weight: 500; transition: var(--transition-fast); position: relative; border-right: 3px solid transparent; }
+        .nav-item:hover { background: rgba(123, 73, 255, 0.05); color: var(--text-primary); }
+        .nav-item.active { background: rgba(123, 73, 255, 0.1); color: var(--color-primary); border-right-color: var(--color-primary); }
+        .nav-item i { width: 24px; text-align: center; font-size: 16px; }
+        .nav-badge { margin-right: auto; padding: 2px 8px; background: var(--color-secondary); color: white; font-size: 11px; font-weight: 600; border-radius: 20px; min-width: 20px; text-align: center; }
+        .sidebar-footer { padding: var(--space-lg); border-top: var(--border-subtle); }
+        .btn-logout { width: 100%; padding: var(--space-md); background: rgba(255, 51, 102, 0.1); border: 1px solid rgba(255, 51, 102, 0.2); border-radius: var(--radius-md); color: var(--color-error); font-family: 'Cairo', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: var(--space-sm); transition: var(--transition-fast); }
+        .btn-logout:hover { background: rgba(255, 51, 102, 0.2); }
+
+        .main-content { margin-right: 280px; padding: var(--space-xl); min-height: 100vh; }
+        .top-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-xl); }
+        .page-title h1 { font-size: 24px; font-weight: 700; margin-bottom: var(--space-xs); }
+        .page-title p { color: var(--text-secondary); font-size: 14px; }
+
+        .settings-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-lg); }
+        .settings-card { background: var(--bg-surface); border: var(--border-subtle); border-radius: var(--radius-lg); overflow: hidden; transition: var(--transition-normal); }
+        .settings-card:hover { border-color: rgba(123, 73, 255, 0.2); }
+        .settings-card.full-width { grid-column: 1 / -1; }
+        .card-header { display: flex; align-items: center; gap: var(--space-md); padding: var(--space-lg); border-bottom: var(--border-subtle); }
+        .card-header-icon { width: 40px; height: 40px; background: rgba(123, 73, 255, 0.1); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; font-size: 18px; color: var(--color-primary); }
+        .card-header-info h3 { font-size: 16px; font-weight: 600; color: var(--text-primary); }
+        .card-header-info p { font-size: 13px; color: var(--text-muted); }
+        .card-body { padding: var(--space-lg); }
+
+        .form-group { margin-bottom: var(--space-lg); }
+        .form-group:last-child { margin-bottom: 0; }
+        .form-label { display: block; color: var(--text-secondary); font-size: 14px; margin-bottom: var(--space-sm); font-weight: 500; }
+        .form-input, .form-textarea, .form-select { width: 100%; padding: var(--space-md); background: rgba(10, 10, 26, 0.6); border: 1px solid rgba(123, 73, 255, 0.2); border-radius: var(--radius-sm); color: var(--text-primary); font-size: 14px; font-family: 'Cairo', sans-serif; transition: var(--transition-fast); outline: none; }
+        .form-input::placeholder, .form-textarea::placeholder { color: var(--text-muted); }
+        .form-input:focus, .form-textarea:focus, .form-select:focus { border-color: var(--color-primary); box-shadow: 0 0 15px rgba(123, 73, 255, 0.2); }
+        .form-textarea { min-height: 100px; resize: vertical; }
+        .form-hint { font-size: 12px; color: var(--text-muted); margin-top: var(--space-xs); }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-md); }
+
+        .color-picker-wrapper { display: flex; align-items: center; gap: var(--space-md); }
+        .color-picker-wrapper input[type="color"] { width: 50px; height: 40px; border: none; border-radius: var(--radius-sm); cursor: pointer; background: none; }
+        .color-value { font-family: monospace; font-size: 14px; color: var(--text-secondary); background: rgba(10, 10, 26, 0.6); padding: var(--space-sm) var(--space-md); border-radius: var(--radius-sm); border: 1px solid rgba(123, 73, 255, 0.2); }
+
+        .toggle-switch { display: flex; align-items: center; gap: var(--space-md); cursor: pointer; }
+        .toggle-switch input { display: none; }
+        .toggle-slider { width: 50px; height: 26px; background: var(--bg-surface-hover); border-radius: 26px; position: relative; transition: var(--transition-fast); border: 1px solid rgba(123, 73, 255, 0.2); }
+        .toggle-slider::after { content: ''; position: absolute; width: 20px; height: 20px; background: var(--text-muted); border-radius: 50%; top: 2px; right: 2px; transition: var(--transition-fast); }
+        .toggle-switch input:checked + .toggle-slider { background: rgba(123, 73, 255, 0.3); border-color: var(--color-primary); }
+        .toggle-switch input:checked + .toggle-slider::after { background: var(--color-primary); transform: translateX(-24px); }
+        .toggle-label { font-size: 14px; color: var(--text-secondary); }
+
+        .btn-save { width: 100%; padding: var(--space-md); background: linear-gradient(135deg, var(--color-primary), var(--color-secondary)); border: none; border-radius: var(--radius-md); color: white; font-family: 'Cairo', sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: var(--space-sm); transition: var(--transition-fast); }
+        .btn-save:hover { filter: brightness(1.2); transform: translateY(-2px); }
+        .btn-save:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+        .danger-zone { border: 1px solid rgba(255, 51, 102, 0.2); }
+        .danger-zone .card-header { border-bottom-color: rgba(255, 51, 102, 0.1); }
+        .danger-zone .card-header-icon { background: rgba(255, 51, 102, 0.1); color: var(--color-error); }
+        .btn-danger { padding: var(--space-md) var(--space-lg); background: rgba(255, 51, 102, 0.1); border: 1px solid rgba(255, 51, 102, 0.3); border-radius: var(--radius-md); color: var(--color-error); font-family: 'Cairo', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: var(--space-sm); transition: var(--transition-fast); }
+        .btn-danger:hover { background: rgba(255, 51, 102, 0.2); }
+
+        .toast-container { position: fixed; top: var(--space-lg); left: 50%; transform: translateX(-50%); z-index: 1000; display: flex; flex-direction: column; gap: var(--space-md); }
+        .toast { display: flex; align-items: center; gap: var(--space-md); padding: var(--space-md) var(--space-lg); background: var(--bg-surface); border: var(--border-primary); border-radius: var(--radius-md); box-shadow: var(--shadow-card); color: var(--text-primary); font-size: 14px; min-width: 300px; animation: toastIn 0.3s ease; }
+        .toast.toast-out { animation: toastOut 0.3s ease forwards; }
+        @keyframes toastIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes toastOut { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(-20px); } }
+        .toast-icon { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+        .toast-success .toast-icon { background: rgba(0, 255, 208, 0.1); color: var(--color-success); }
+        .toast-error .toast-icon { background: rgba(255, 51, 102, 0.1); color: var(--color-error); }
+
+        .mobile-toggle { display: none; position: fixed; top: var(--space-lg); left: var(--space-lg); z-index: 200; width: 45px; height: 45px; background: var(--bg-surface); border: var(--border-primary); border-radius: var(--radius-md); color: var(--text-primary); font-size: 18px; cursor: pointer; align-items: center; justify-content: center; }
+        .sidebar-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.7); z-index: 99; }
+        .sidebar-overlay.show { display: block; }
+
+        @media (max-width: 1200px) { .settings-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 768px) {
+            .sidebar { transform: translateX(100%); }
+            .sidebar.open { transform: translateX(0); }
+            .main-content { margin-right: 0; padding: var(--space-lg); padding-top: 80px; }
+            .mobile-toggle { display: flex; }
+            .form-row { grid-template-columns: 1fr; }
+            .top-bar { flex-direction: column; align-items: flex-start; gap: var(--space-md); }
+        }
+    </style>
+</head>
+<body>
+    <button class="mobile-toggle" id="mobileToggle"><i class="fas fa-bars"></i></button>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="dashboard.html" class="sidebar-brand">
+                <div class="sidebar-brand-icon"><i class="fas fa-store"></i></div>
+                <div class="sidebar-brand-text"><h2>Shop Store</h2><span>لوحة التحكم</span></div>
+            </a>
+        </div>
+        <div class="sidebar-user">
+            <div class="user-avatar" id="userAvatar">م</div>
+            <div class="user-info"><h4 id="userName">المدير</h4><span id="userRole">مدير النظام</span></div>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="nav-section">
+                <div class="nav-section-title">القائمة الرئيسية</div>
+                <a href="dashboard.html" class="nav-item"><i class="fas fa-chart-line"></i><span>لوحة التحكم</span></a>
+                <a href="orders.html" class="nav-item"><i class="fas fa-shopping-bag"></i><span>الطلبات</span><span class="nav-badge" id="ordersBadge">0</span></a>
+                <a href="products.html" class="nav-item"><i class="fas fa-box"></i><span>المنتجات</span></a>
+                <a href="employees.html" class="nav-item" id="employeesNav"><i class="fas fa-users"></i><span>الموظفين</span></a>
+            </div>
+            <div class="nav-section">
+                <div class="nav-section-title">الإعدادات</div>
+                <a href="settings.html" class="nav-item active"><i class="fas fa-cog"></i><span>إعدادات الموقع</span></a>
+            </div>
+        </nav>
+        <div class="sidebar-footer">
+            <button class="btn-logout" id="logoutBtn"><i class="fas fa-sign-out-alt"></i><span>تسجيل الخروج</span></button>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <div class="top-bar">
+            <div class="page-title"><h1>إعدادات الموقع</h1><p>تخصيص إعدادات المتجر والاتصال</p></div>
+        </div>
+
+        <div class="settings-grid">
+            <!-- Store Info -->
+            <div class="settings-card">
+                <div class="card-header">
+                    <div class="card-header-icon"><i class="fas fa-store"></i></div>
+                    <div class="card-header-info"><h3>معلومات المتجر</h3><p>اسم المتجر والوصف الأساسي</p></div>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label class="form-label">اسم المتجر</label>
+                        <input type="text" class="form-input" id="storeName" placeholder="Shop Store">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">وصف المتجر</label>
+                        <textarea class="form-textarea" id="storeDescription" placeholder="وصف قصير يظهر في المتجر..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">اللغة الافتراضية</label>
+                        <select class="form-select" id="storeLanguage">
+                            <option value="ar">العربية</option>
+                            <option value="en">English</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Info -->
+            <div class="settings-card">
+                <div class="card-header">
+                    <div class="card-header-icon"><i class="fas fa-address-card"></i></div>
+                    <div class="card-header-info"><h3>بيانات التواصل</h3><p>كيف يتواصل العملاء معك</p></div>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label class="form-label">رقم الهاتف</label>
+                        <input type="text" class="form-input" id="contactPhone" placeholder="05xxxxxxxx">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">البريد الإلكتروني</label>
+                        <input type="email" class="form-input" id="contactEmail" placeholder="example@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">رابط Telegram</label>
+                        <input type="text" class="form-input" id="contactTelegram" placeholder="@username">
+                        <p class="form-hint">سيتم إرسال إشعارات الطلبات لهذا الحساب</p>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">رابط WhatsApp</label>
+                        <input type="text" class="form-input" id="contactWhatsapp" placeholder="9665xxxxxxxx">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Telegram Bot -->
+            <div class="settings-card">
+                <div class="card-header">
+                    <div class="card-header-icon"><i class="fab fa-telegram"></i></div>
+                    <div class="card-header-info"><h3>Telegram Bot</h3><p>إعدادات البوت لإرسال الإشعارات</p></div>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label class="form-label">Bot Token</label>
+                        <input type="password" class="form-input" id="telegramToken" placeholder="123456789:ABCdefGHIjklMNOpqrSTUvwxyz">
+                        <p class="form-hint">احصل عليه من @BotFather في Telegram</p>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Chat ID</label>
+                        <input type="text" class="form-input" id="telegramChatId" placeholder="-1001234567890">
+                        <p class="form-hint">معرف القناة أو المجموعة لاستقبال الإشعارات</p>
+                    </div>
+                    <div class="form-group">
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="telegramEnabled">
+                            <span class="toggle-slider"></span>
+                            <span class="toggle-label">تفعيل إشعارات Telegram</span>
+                        </label>
+                    </div>
+                    <button class="btn-save" id="testTelegramBtn" style="margin-top: var(--space-md); width: auto; padding: var(--space-sm) var(--space-lg); font-size: 13px;">
+                        <i class="fab fa-telegram"></i> اختبار الاتصال
+                    </button>
+                </div>
+            </div>
+
+            <!-- Appearance -->
+            <div class="settings-card">
+                <div class="card-header">
+                    <div class="card-header-icon"><i class="fas fa-palette"></i></div>
+                    <div class="card-header-info"><h3>المظهر</h3><p>ألوان وشكل المتجر</p></div>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label class="form-label">اللون الرئيسي</label>
+                        <div class="color-picker-wrapper">
+                            <input type="color" id="colorPrimary" value="#7B49FF">
+                            <span class="color-value" id="colorPrimaryValue">#7B49FF</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">لون التأكيد</label>
+                        <div class="color-picker-wrapper">
+                            <input type="color" id="colorAccent" value="#00FFD0">
+                            <span class="color-value" id="colorAccentValue">#00FFD0</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">لون الخطر</label>
+                        <div class="color-picker-wrapper">
+                            <input type="color" id="colorError" value="#FF3366">
+                            <span class="color-value" id="colorErrorValue">#FF3366</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="darkMode" checked disabled>
+                            <span class="toggle-slider"></span>
+                            <span class="toggle-label">الوضع الداكن (ثابت)</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Order Settings -->
+            <div class="settings-card">
+                <div class="card-header">
+                    <div class="card-header-icon"><i class="fas fa-shopping-cart"></i></div>
+                    <div class="card-header-info"><h3>إعدادات الطلبات</h3><p>خيارات معالجة الطلبات</p></div>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label class="form-label">الحد الأدنى للطلب (ر.س)</label>
+                        <input type="number" class="form-input" id="minOrderAmount" placeholder="0" min="0" step="0.01" value="0">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">رسوم التوصيل (ر.س)</label>
+                        <input type="number" class="form-input" id="deliveryFee" placeholder="0" min="0" step="0.01" value="0">
+                    </div>
+                    <div class="form-group">
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="autoApproveOrders">
+                            <span class="toggle-slider"></span>
+                            <span class="toggle-label">الموافقة التلقائية على الطلبات</span>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="stockCheck" checked>
+                            <span class="toggle-slider"></span>
+                            <span class="toggle-label">التحقق من توفر المخزون</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Save Button -->
+            <div class="settings-card full-width">
+                <div class="card-body" style="padding: var(--space-lg);">
+                    <button class="btn-save" id="saveSettingsBtn">
+                        <i class="fas fa-save"></i> حفظ جميع الإعدادات
+                    </button>
+                </div>
+            </div>
+
+            <!-- Danger Zone (Admin Only) -->
+            <div class="settings-card danger-zone full-width" id="dangerZone" style="display: none;">
+                <div class="card-header">
+                    <div class="card-header-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                    <div class="card-header-info"><h3>منطقة الخطر</h3><p>إجراءات لا يمكن التراجع عنها</p></div>
+                </div>
+                <div class="card-body">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">مسح جميع الطلبات</label>
+                            <button class="btn-danger" id="clearOrdersBtn"><i class="fas fa-trash"></i> مسح الطلبات</button>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">إعادة ضبط المصنع</label>
+                            <button class="btn-danger" id="factoryResetBtn"><i class="fas fa-undo"></i> إعادة ضبط الكل</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
+    <script src="js/admin/auth.js"></script>
+    <script src="js/admin/sidebar.js"></script>
+    
+    <script>
+    (function() {
+        'use strict';
+        if (!AuthAPI.protectPage('settings')) return;
+
+        const userAvatar = document.getElementById('userAvatar');
+        const userName = document.getElementById('userName');
+        const userRole = document.getElementById('userRole');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const mobileToggle = document.getElementById('mobileToggle');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+        const employeesNav = document.getElementById('employeesNav');
+        const toastContainer = document.getElementById('toastContainer');
+        const dangerZone = document.getElementById('dangerZone');
+        const saveSettingsBtn = document.getElementById('saveSettingsBtn');
+        const testTelegramBtn = document.getElementById('testTelegramBtn');
+        const clearOrdersBtn = document.getElementById('clearOrdersBtn');
+        const factoryResetBtn = document.getElementById('factoryResetBtn');
+
+        const DEFAULT_SETTINGS = {
+            storeName: 'Shop Store',
+            storeDescription: 'أفضل متجر إلكتروني',
+            storeLanguage: 'ar',
+            contactPhone: '',
+            contactEmail: '',
+            contactTelegram: '',
+            contactWhatsapp: '',
+            telegramToken: '',
+            telegramChatId: '',
+            telegramEnabled: false,
+            colorPrimary: '#7B49FF',
+            colorAccent: '#00FFD0',
+            colorError: '#FF3366',
+            darkMode: true,
+            minOrderAmount: 0,
+            deliveryFee: 0,
+            autoApproveOrders: false,
+            stockCheck: true
+        };
+
+        function init() {
+            initUserInfo();
+            loadSettings();
+            bindEvents();
+            updateOrdersBadge();
+            checkAdminAccess();
+        }
+
+        function initUserInfo() {
+            const user = AuthAPI.getCurrentUser();
+            if (user) {
+                userName.textContent = user.name || user.username;
+                userAvatar.textContent = (user.name || user.username).charAt(0).toUpperCase();
+                userRole.textContent = user.role === 'admin' ? 'مدير النظام' : 'موظف';
+                if (user.role !== 'admin' && employeesNav) employeesNav.style.display = 'none';
+            }
+        }
+
+        function checkAdminAccess() {
+            const user = AuthAPI.getCurrentUser();
+            if (user && user.role === 'admin' && dangerZone) dangerZone.style.display = 'block';
+        }
+
+        function updateOrdersBadge() {
+            try {
+                const orders = JSON.parse(localStorage.getItem('shop_store_orders') || '[]');
+                const pending = orders.filter(o => o.status === 'pending').length;
+                const badge = document.getElementById('ordersBadge');
+                if (badge) { badge.textContent = pending; badge.style.display = pending > 0 ? 'flex' : 'none'; }
+            } catch (e) {}
+        }
+
+        function loadSettings() {
+            try {
+                const saved = localStorage.getItem('shop_store_settings');
+                const settings = saved ? JSON.parse(saved) : DEFAULT_SETTINGS;
+                document.getElementById('storeName').value = settings.storeName || '';
+                document.getElementById('storeDescription').value = settings.storeDescription || '';
+                document.getElementById('storeLanguage').value = settings.storeLanguage || 'ar';
+                document.getElementById('contactPhone').value = settings.contactPhone || '';
+                document.getElementById('contactEmail').value = settings.contactEmail || '';
+                document.getElementById('contactTelegram').value = settings.contactTelegram || '';
+                document.getElementById('contactWhatsapp').value = settings.contactWhatsapp || '';
+                document.getElementById('telegramToken').value = settings.telegramToken || '';
+                document.getElementById('telegramChatId').value = settings.telegramChatId || '';
+                document.getElementById('telegramEnabled').checked = settings.telegramEnabled || false;
+                document.getElementById('colorPrimary').value = settings.colorPrimary || '#7B49FF';
+                document.getElementById('colorPrimaryValue').textContent = settings.colorPrimary || '#7B49FF';
+                document.getElementById('colorAccent').value = settings.colorAccent || '#00FFD0';
+                document.getElementById('colorAccentValue').textContent = settings.colorAccent || '#00FFD0';
+                document.getElementById('colorError').value = settings.colorError || '#FF3366';
+                document.getElementById('colorErrorValue').textContent = settings.colorError || '#FF3366';
+                document.getElementById('minOrderAmount').value = settings.minOrderAmount || 0;
+                document.getElementById('deliveryFee').value = settings.deliveryFee || 0;
+                document.getElementById('autoApproveOrders').checked = settings.autoApproveOrders || false;
+                document.getElementById('stockCheck').checked = settings.stockCheck !== false;
+            } catch (e) { console.error('Error loading settings:', e); }
+        }
+
+        function saveSettings() {
+            const settings = {
+                storeName: document.getElementById('storeName').value.trim(),
+                storeDescription: document.getElementById('storeDescription').value.trim(),
+                storeLanguage: document.getElementById('storeLanguage').value,
+                contactPhone: document.getElementById('contactPhone').value.trim(),
+                contactEmail: document.getElementById('contactEmail').value.trim(),
+                contactTelegram: document.getElementById('contactTelegram').value.trim(),
+                contactWhatsapp: document.getElementById('contactWhatsapp').value.trim(),
+                telegramToken: document.getElementById('telegramToken').value.trim(),
+                telegramChatId: document.getElementById('telegramChatId').value.trim(),
+                telegramEnabled: document.getElementById('telegramEnabled').checked,
+                colorPrimary: document.getElementById('colorPrimary').value,
+                colorAccent: document.getElementById('colorAccent').value,
+                colorError: document.getElementById('colorError').value,
+                darkMode: true,
+                minOrderAmount: parseFloat(document.getElementById('minOrderAmount').value) || 0,
+                deliveryFee: parseFloat(document.getElementById('deliveryFee').value) || 0,
+                autoApproveOrders: document.getElementById('autoApproveOrders').checked,
+                stockCheck: document.getElementById('stockCheck').checked,
+                updated_at: new Date().toISOString()
+            };
+            localStorage.setItem('shop_store_settings', JSON.stringify(settings));
+            showToast('تم', 'تم حفظ الإعدادات بنجاح', 'success');
+        }
+
+        function testTelegram() {
+            const token = document.getElementById('telegramToken').value.trim();
+            const chatId = document.getElementById('telegramChatId').value.trim();
+            if (!token || !chatId) { showToast('تنبيه', 'أدخل Bot Token و Chat ID أولاً', 'warning'); return; }
+            showToast('جاري الاختبار', 'جاري إرسال رسالة تجريبية...', 'info');
+            const message = encodeURIComponent('Test message from Shop Store Admin');
+            fetch('https://api.telegram.org/bot' + token + '/sendMessage?chat_id=' + chatId + '&text=' + message + '&parse_mode=HTML')
+                .then(function(r) { return r.json(); })
+                .then(function(data) {
+                    if (data.ok) showToast('تم', 'تم الاتصال بـ Telegram بنجاح!', 'success');
+                    else showToast('خطأ', 'فشل الاتصال: ' + (data.description || 'خطأ غير معروف'), 'error');
+                })
+                .catch(function() { showToast('خطأ', 'تعذر الاتصال بـ Telegram', 'error'); });
+        }
+
+        function clearOrders() {
+            if (!confirm('هل أنت متأكد من مسح جميع الطلبات؟ لا يمكن التراجع عن هذا الإجراء.')) return;
+            localStorage.removeItem('shop_store_orders');
+            showToast('تم', 'تم مسح جميع الطلبات', 'success');
+            updateOrdersBadge();
+        }
+
+        function factoryReset() {
+            if (!confirm('تحذير! سيتم مسح جميع البيانات وإعادة الضبط. هل أنت متأكد؟')) return;
+            if (!confirm('تأكيد نهائي: سيتم حذف المنتجات، الطلبات، الموظفين، والإعدادات. اضغط OK للمتابعة.')) return;
+            localStorage.removeItem('shop_store_products');
+            localStorage.removeItem('shop_store_orders');
+            localStorage.removeItem('shop_store_settings');
+            localStorage.removeItem('shop_store_users_cache');
+            localStorage.removeItem('shop_store_session');
+            localStorage.removeItem('shop_store_device');
+            showToast('تم', 'تم إعادة ضبط النظام. سيتم تسجيل الخروج...', 'success');
+            setTimeout(function() { AuthAPI.logout(); }, 2000);
+        }
+
+        function showToast(title, message, type) {
+            if (!toastContainer) return;
+            const icons = { success: 'fa-check-circle', error: 'fa-times-circle', warning: 'fa-exclamation-triangle', info: 'fa-info-circle' };
+            const toast = document.createElement('div');
+            toast.className = 'toast toast-' + type;
+            toast.innerHTML = '<div class="toast-icon"><i class="fas ' + icons[type] + '"></i></div><div><div style="font-weight: 600;">' + title + '</div><div style="font-size: 13px; color: var(--text-secondary);">' + message + '</div></div>';
+            toastContainer.appendChild(toast);
+            setTimeout(function() { toast.classList.add('toast-out'); setTimeout(function() { toast.remove(); }, 300); }, 4000);
+        }
+
+        function bindEvents() {
+            saveSettingsBtn.addEventListener('click', saveSettings);
+            testTelegramBtn.addEventListener('click', testTelegram);
+            if (clearOrdersBtn) clearOrdersBtn.addEventListener('click', clearOrders);
+            if (factoryResetBtn) factoryResetBtn.addEventListener('click', factoryReset);
+
+            ['colorPrimary', 'colorAccent', 'colorError'].forEach(function(id) {
+                var el = document.getElementById(id);
+                var valEl = document.getElementById(id + 'Value');
+                if (el && valEl) el.addEventListener('input', function() { valEl.textContent = el.value; });
+            });
+
+            logoutBtn.addEventListener('click', function() { AuthAPI.logout(); });
+            mobileToggle.addEventListener('click', function() { sidebar.classList.toggle('open'); sidebarOverlay.classList.toggle('show'); });
+            sidebarOverlay.addEventListener('click', function() { sidebar.classList.remove('open'); sidebarOverlay.classList.remove('show'); });
+        }
+
+        init();
+    })();
+    </script>
+</body>
+</html>

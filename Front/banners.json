@@ -1,0 +1,22 @@
+{
+  "banners": [
+    {
+      "image": "images/1.png",
+      "title": "تطبيقات +Plus",
+      "badge": "تطبيقات",
+      "active": true
+    },
+    {
+      "image": "images/2.png",
+      "title": "ألعاب الفيديو",
+      "badge": "ألعاب",
+      "active": true
+    },
+    {
+      "image": "images/3.png",
+      "title": "قسم الترفيه",
+      "badge": "تطبيقات",
+      "active": true
+    }
+  ]
+}
