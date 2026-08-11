@@ -31,10 +31,6 @@ if (isset($users['admin']) &&
     $_SESSION['role'] = 'admin';
     $_SESSION['permissions'] = $users['admin']['permissions'] ?? [];
     
-    // تحديث آخر دخول
-    $users['admin']['last_login'] = date('c');
-    writeJson(USERS_FILE, $users);
-    
     success([
         'user' => [
             'id' => $users['admin']['id'],
@@ -58,11 +54,6 @@ foreach ($users['employees'] ?? [] as $emp) {
         $_SESSION['name'] = $emp['name'];
         $_SESSION['role'] = 'employee';
         $_SESSION['permissions'] = $emp['permissions'] ?? [];
-        
-        // تحديث آخر دخول
-        $emp['last_login'] = date('c');
-        // ... تحديث في المصفوفة
-        writeJson(USERS_FILE, $users);
         
         success([
             'user' => [
