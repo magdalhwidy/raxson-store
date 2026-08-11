@@ -125,7 +125,7 @@
             const response = await fetch(CONFIG.API_URL + 'login.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ username, password: md5(password) })
+                body: JSON.stringify({ username, password })
             });
             const result = await response.json();
             if (result.success) {
