@@ -8,7 +8,7 @@
     const CONFIG = {
         SESSION_KEY: 'shop_store_session',
         DEVICE_KEY: 'shop_store_device',
-        API_URL: '../api/',
+        API_URL: 'https://raxson.freepage.cc/api/',
         MAX_ATTEMPTS: 5,
         LOCKOUT_MINUTES: 30,
         SESSION_HOURS: 8
@@ -125,7 +125,7 @@
             const response = await fetch(CONFIG.API_URL + 'login.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ username, password })
+                body: JSON.stringify({ username, password: md5(password) })
             });
             const result = await response.json();
             if (result.success) {

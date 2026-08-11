@@ -9,7 +9,7 @@
     // ⚠️ CONFIG - املأ هذه البيانات
     // ═══════════════════════════════════════════
     const CONFIG = {
-        API_URL: '../api/orders.php',
+        API_URL: 'https://raxson.freepage.cc/api/orders.php',
         MAYSAR_API_KEY: '',
         MAYSAR_API_SECRET: '',
         MAYSAR_API_URL: 'https://api.maysar.com/v1',

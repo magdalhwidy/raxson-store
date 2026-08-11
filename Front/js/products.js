@@ -9,7 +9,7 @@
     'use strict';
 
     // ─── API Configuration ───
-    const API_URL = '/api/products.php';
+    const API_URL = 'https://raxson.freepage.cc/api/products.php';
 
     // ─── DOM Elements ───
     const productsGrid = document.getElementById('productsGrid');

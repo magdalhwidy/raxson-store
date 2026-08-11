@@ -7,7 +7,7 @@
 
     // ─── Configuration ───
     const CONFIG = {
-        API_URL: '../api/customers.php',
+        API_URL: 'https://raxson.freepage.cc/api/customers.php',
         STORAGE_KEY: 'shop_customer_session',
         MESSAGES: {
             loginSuccess: 'تم تسجيل الدخول بنجاح! ',
