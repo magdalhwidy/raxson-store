@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html dir="rtl">
+<head><meta charset="UTF-8"><title>Test API</title></head>
+<body style="font-family: Arial; padding: 20px;">
+<h1>اختبار API</h1>
+<div id="result" style="white-space: pre-wrap; background: #f0f0f0; padding: 10px;"></div>
+<script>
+const API = 'https://raxson.freepage.cc/api/';
+const result = document.getElementById('result');
+
+// Test 1: GET load_users.php
+fetch(API + 'load_users.php')
+  .then(r => r.text())
+  .then(t => result.innerHTML += '✅ GET load_users: ' + t.substring(0, 100) + '...\n\n')
+  .catch(e => result.innerHTML += '❌ GET load_users: ' + e + '\n\n');
+
+// Test 2: HEAD session.php
+fetch(API + 'session.php', { method: 'HEAD' })
+  .then(r => result.innerHTML += '✅ HEAD session: ' + r.status + '\n\n')
+  .catch(e => result.innerHTML += '❌ HEAD session: ' + e + '\n\n');
+
+// Test 3: POST login.php
+fetch(API + 'login.php', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ username: 'admin', password: 'test' })
+})
+  .then(r => r.text())
+  .then(t => result.innerHTML += '✅ POST login: ' + t.substring(0, 200) + '\n\n')
+  .catch(e => result.innerHTML += '❌ POST login: ' + e + '\n\n');
+</script>
+</body>
+</html>
