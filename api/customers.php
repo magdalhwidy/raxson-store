@@ -8,7 +8,7 @@
 
 require_once __DIR__ . '/init.php';
 
-define('CUSTOMERS_FILE', __DIR__ . '/customers.json');
+define('CUSTOMERS_FILE', __DIR__ . '/customers-data.json');
 
 // ─── Load Customers Data ───
 function loadCustomersData() {
