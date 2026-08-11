@@ -8,7 +8,7 @@
     const CONFIG = {
         SESSION_KEY: 'shop_store_session',
         DEVICE_KEY: 'shop_store_device',
-        API_URL: 'https://raxson.freepage.cc/api/',
+        API_URL: '/api/',
         MAX_ATTEMPTS: 5,
         LOCKOUT_MINUTES: 30,
         SESSION_HOURS: 8
