@@ -25,12 +25,6 @@ if (isset($users['admin']) &&
         error('الحساب معطل');
     }
     
-    $_SESSION['user_id'] = $users['admin']['id'];
-    $_SESSION['username'] = $users['admin']['username'];
-    $_SESSION['name'] = $users['admin']['name'];
-    $_SESSION['role'] = 'admin';
-    $_SESSION['permissions'] = $users['admin']['permissions'] ?? [];
-    
     success([
         'user' => [
             'id' => $users['admin']['id'],
@@ -48,12 +42,6 @@ foreach ($users['employees'] ?? [] as $emp) {
         $emp['password'] === $passwordHash &&
         $emp['approved'] === true &&
         $emp['active'] !== false) {
-        
-        $_SESSION['user_id'] = $emp['id'];
-        $_SESSION['username'] = $emp['username'];
-        $_SESSION['name'] = $emp['name'];
-        $_SESSION['role'] = 'employee';
-        $_SESSION['permissions'] = $emp['permissions'] ?? [];
         
         success([
             'user' => [
