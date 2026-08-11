@@ -1,0 +1,13 @@
+{
+    "settings": {
+        "store_name": "Shop Store",
+        "store_currency": "SAR",
+        "telegram_bot": "",
+        "contact_phone": "",
+        "contact_email": ""
+    },
+    "meta": {
+        "version": "1.0",
+        "last_updated": "2026-07-13T10:54:13+00:00"
+    }
+}
