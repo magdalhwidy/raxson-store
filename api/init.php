@@ -37,10 +37,12 @@ if (in_array(basename($_SERVER['PHP_SELF']), $jsonFiles)) {
 
 // ─── Paths ───
 define('DATA_DIR', __DIR__ . '/');
-define('USERS_FILE', DATA_DIR . 'users.json');
-define('PRODUCTS_FILE', DATA_DIR . 'products.json');
-define('ORDERS_FILE', DATA_DIR . 'orders.json');
-define('SETTINGS_FILE', DATA_DIR . 'settings.json');
+define('USERS_FILE', DATA_DIR . 'users-data.json');
+define('PRODUCTS_FILE', DATA_DIR . 'products-data.json');
+define('SETTINGS_FILE', DATA_DIR . 'settings-data.json');
+
+define('ORDERS_FILE', DATA_DIR . 'orders-data.json');
+
 
 // ─── Helper: Read JSON ───
 function readJson($file) {
