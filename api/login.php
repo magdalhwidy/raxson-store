@@ -14,7 +14,7 @@ if (empty($username) || empty($password)) {
 }
 
 $users = readJson(USERS_FILE);
-$passwordHash = md5($password);
+$passwordHash = $password;
 
 // التحقق من الأدمن
 if (isset($users['admin']) && 
